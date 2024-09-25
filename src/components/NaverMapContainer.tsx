@@ -1,7 +1,6 @@
 "use client";
 
-import { memo, useEffect, useState } from "react";
-import marker_png from "../images/location-pin.png";
+import { memo, useEffect } from "react";
 
 const MARKER_SPRITE_X_OFFSET = 29,
   MARKER_SPRITE_Y_OFFSET = 50,
