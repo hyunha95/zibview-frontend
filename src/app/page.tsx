@@ -1,4 +1,4 @@
-import NaverMap from "@/components/NaverMap";
+import NaverMapContainer from "@/components/NaverMapContainer";
 import NaverMapHeader from "@/components/NaverMapHeader";
 import NaverMapLeftSide from "@/components/NaverMapLeftSide";
 
@@ -7,7 +7,7 @@ export default function Home() {
     <main className="relative">
       <NaverMapHeader />
       <NaverMapLeftSide />
-      <NaverMap />
+      <NaverMapContainer />
     </main>
   );
 }

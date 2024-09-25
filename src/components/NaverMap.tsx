@@ -1,16 +1,14 @@
 "use client";
 
-import { memo, useEffect } from "react";
+import { useEffect } from "react";
 
-const NaverMap = () => {
-  useEffect(() => {
-    new naver.maps.Map("map", {
-      center: new naver.maps.LatLng(37.3595704, 127.105399),
-      zoom: 15,
-    });
-  }, []);
-
-  return <div id="map" className="h-screen w-screen"></div>;
+type Props = {
+  map: NaverMap;
+  markers: NaverMarker[];
 };
 
-export default memo(NaverMap);
+export default function NaverMap({ map, markers }: Props) {
+  useEffect(() => {}, [map, markers]); // map과 markers가 변경될 때마다 다시 리스너를 등록
+
+  return ;
+}
