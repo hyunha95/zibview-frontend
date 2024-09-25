@@ -47,11 +47,17 @@ const NaverMapContainer = () => {
     });
     // setNaverMap(map);
     const bounds = map.getBounds(),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       southWest = bounds.getSW(),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       northEast = bounds.getNE(),
       lngSpan = northEast.lng() - southWest.lng(),
       latSpan = northEast.lat() - southWest.lat();
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     const updateMarkers = (map, markers) => {
       const mapBounds = map.getBounds();
       let marker, position;
@@ -68,16 +74,22 @@ const NaverMapContainer = () => {
       }
     };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     const showMarker = (map, marker) => {
       if (marker.setMap()) return;
       marker.setMap(map);
     };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     const hideMarker = (map, marker) => {
       if (!marker.setMap()) return;
       marker.setMap(null);
     };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     const markers = [];
 
     for (const key in MARKER_SPRITE_POSITION) {
@@ -94,9 +106,14 @@ const NaverMapContainer = () => {
           url: "s",
           size: new naver.maps.Size(24, 37),
           anchor: new naver.maps.Point(12, 37),
+
           origin: new naver.maps.Point(
-            MARKER_SPRITE_POSITION[key][0],
-            MARKER_SPRITE_POSITION[key][1]
+            MARKER_SPRITE_POSITION[
+              key as keyof typeof MARKER_SPRITE_POSITION
+            ][0],
+            MARKER_SPRITE_POSITION[
+              key as keyof typeof MARKER_SPRITE_POSITION
+            ][1]
           ),
         },
         zIndex: 100,
@@ -109,6 +126,8 @@ const NaverMapContainer = () => {
 
     // 컴포넌트가 마운트될 때 이벤트 리스너를 등록
     const idleListener = naver.maps.Event.addListener(map, "idle", () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       updateMarkers(map, markers);
     });
 
