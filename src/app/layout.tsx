@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CSPostHogProvider } from "./providers";
 
 const geistSans = localFont({
@@ -40,6 +41,7 @@ export default function RootLayout({
         >
           {children}
           <Analytics />
+          <SpeedInsights />
         </body>
       </CSPostHogProvider>
     </html>
