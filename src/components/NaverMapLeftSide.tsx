@@ -7,7 +7,7 @@ export default function NaverMapLeftSide() {
   const [active, setActive] = useState<"APARTMENT" | "OFFICETEL">("APARTMENT");
 
   return (
-    <div className="ml-3 pt-3 w-12 h-ful top-12 left-0 z-50 absolute flex flex-col gap-y-2">
+    <div className="ml-3 pt-3 w-12 h-full top-14 left-0 z-50 absolute flex flex-col gap-y-2">
       <button
         onClick={() => setActive("APARTMENT")}
         className={`flex flex-col items-center gap-0.5 py-1 rounded-md drop-shadow-lg shadow-inner ${
