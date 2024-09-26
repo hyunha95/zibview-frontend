@@ -1,6 +1,7 @@
 "use client";
 
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
+import ReactLoading from "react-loading";
 
 const MARKER_SPRITE_X_OFFSET = 29,
   MARKER_SPRITE_Y_OFFSET = 50,
@@ -37,6 +38,8 @@ const MARKER_SPRITE_X_OFFSET = 29,
   };
 
 const NaverMapContainer = () => {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const map = new naver.maps.Map("naver-map-id", {
       center: new naver.maps.LatLng(37.3595704, 127.105399),
@@ -83,7 +86,7 @@ const NaverMapContainer = () => {
       );
 
       const markerHTML = `
-      <div style="position: relative; width: 60px; height: 60px;">
+      <div id="marker" style="position: relative; width: 60px; height: 60px;">
         <svg style="filter: drop-shadow(0px 6px 4px rgba(0, 0, 0, 0.6));" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="#f97316" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <span class="price" style="position: absolute; top:9px; left:50%; transform: translate(-50%, 0); width: 100%; text-align: center; font-size: 14px; font-weight: bold; color: white;">5.5억</span>
         <span class="size" style="position: absolute; bottom:16px; left:50%; transform: translate(-50%, 0); font-size: 12px; color: white;">32평</span>
@@ -106,6 +109,8 @@ const NaverMapContainer = () => {
         },
         zIndex: 100,
       });
+
+      naver.maps.Event.addListener(marker, "click", () => console.log(111));
 
       markers.push(marker);
     }
@@ -130,6 +135,8 @@ const NaverMapContainer = () => {
       }
     );
 
+    setLoading(false);
+
     // 컴포넌트가 언마운트될 때 이벤트 리스너를 해제
     return () => {
       // naver.maps.Event.removeListener(idleListener);
@@ -138,7 +145,16 @@ const NaverMapContainer = () => {
     };
   }, []);
 
-  return <div id="naver-map-id" className="h-screen w-screen"></div>;
+  return (
+    <>
+      {loading && (
+        <div className="h-screen w-screen flex items-center justify-center">
+          <ReactLoading type="spin" color="#f97316" />
+        </div>
+      )}
+      <div id="naver-map-id" className="h-screen w-screen"></div>
+    </>
+  );
 };
 
 export default memo(NaverMapContainer);
