@@ -3,17 +3,17 @@
 import { memo, useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import { useRouter } from "next/navigation";
-import { searchByPoints } from "@/lib/searchByPoint";
+import { searchByPoints } from "@/lib/data";
 import { updateMarkers } from "@/lib/mapUtils";
 
 const NaverMapContainer = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  function initGeocoder() {
     const latlng = new naver.maps.LatLng(37.3595704, 127.105399);
 
-    const utmk = naver.maps.TransCoord.fromLatLngToUTMK(latlng);
+    const utmk = naver.maps.TransCoord?.fromLatLngToUTMK(latlng);
 
     const map = new naver.maps.Map("naver-map-id", {
       center: latlng,
@@ -31,18 +31,20 @@ const NaverMapContainer = () => {
       southWest.lat(),
       southWest.lng()
     );
-    const utmkNE = naver.maps.TransCoord.fromLatLngToUTMK(northEastLatLng);
-    const utmkSW = naver.maps.TransCoord.fromLatLngToUTMK(southWestLatLng);
+    const utmkNE = naver.maps.TransCoord?.fromLatLngToUTMK(northEastLatLng);
+    const utmkSW = naver.maps.TransCoord?.fromLatLngToUTMK(southWestLatLng);
 
-    const utmkLngSpan = utmkNE.x - utmkSW.x;
-    const utmkLatSpan = utmkNE.y - utmkSW.y;
+    const utmkLngSpan = utmkNE?.x - utmkSW?.x;
+    const utmkLatSpan = utmkNE?.y - utmkSW?.y;
 
     const markers: NaverMarker[] = [];
 
     const fetchJibuns = async () => {
+      if (!utmk) return;
+
       const jibuns = await searchByPoints(
-        utmk.x,
-        utmk.y,
+        utmk?.x,
+        utmk?.y,
         utmkLngSpan,
         utmkLatSpan
       );
@@ -52,15 +54,15 @@ const NaverMapContainer = () => {
         const position = naver.maps.TransCoord.fromUTMKToLatLng(utmk); // UTMK -> LatLng
 
         const markerHTML = `
-      <div id="marker" style="position: relative; width: 70px; height: 70px;">
-        <div style="z-index:9999; opacity:0; pointer-events:none; position: absolute; top: 0; left: 50%; transform: translate(-50%, -110%); background-color: white; border: 1px solid gray; border-radius: 9px; height: auto; width: max-content; padding: 4px 8px; display: flex; flex-direction: column; justify-content: center; text-align: center; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-          <span style="font-weight: bold">${jibun.buildingName}</span>
-          <span style="font-weight: semi-bold; font-size:15px;">${jibun.jibunAddress}</span>
-        </div>
-        <svg style="filter: drop-shadow(0px 6px 4px rgba(0, 0, 0, 0.6));" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="#f97316" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <span class="price" style="position: absolute; top:13px; left:50%; transform: translate(-50%, 0); width: 100%; text-align: center; font-size: 14px; font-weight: bold; color: white;">${jibun.dealAmount}억</span>
-        <span class="size" style="position: absolute; bottom:19px; left:50%; transform: translate(-50%, 0); font-size: 13px; font-weight: semi-bold; color: white;">${jibun.exclusiveUseArea}평</span>
-      </div>`;
+    <div id="marker" style="position: relative; width: 70px; height: 70px;">
+      <div style="z-index:9999; opacity:0; pointer-events:none; position: absolute; top: 0; left: 50%; transform: translate(-50%, -110%); background-color: white; border: 1px solid gray; border-radius: 9px; height: auto; width: max-content; padding: 4px 8px; display: flex; flex-direction: column; justify-content: center; text-align: center; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+        <span style="font-weight: bold">${jibun.buildingName}</span>
+        <span style="font-weight: semi-bold; font-size:15px;">${jibun.jibunAddress}</span>
+      </div>
+      <svg style="filter: drop-shadow(0px 6px 4px rgba(0, 0, 0, 0.6));" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="#f97316" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="price" style="position: absolute; top:13px; left:50%; transform: translate(-50%, 0); width: 100%; text-align: center; font-size: 14px; font-weight: bold; color: white;">${jibun.dealAmount}억</span>
+      <span class="size" style="position: absolute; bottom:19px; left:50%; transform: translate(-50%, 0); font-size: 13px; font-weight: semi-bold; color: white;">${jibun.exclusiveUseArea}평</span>
+    </div>`;
 
         const marker = new naver.maps.Marker({
           map: map,
@@ -76,7 +78,7 @@ const NaverMapContainer = () => {
         marker.setAnimation(naver.maps.Animation.DROP);
 
         naver.maps.Event.addListener(marker, "click", () =>
-          router.push(`/buildings/${jibun.jibunId}`)
+          router.push(`/apartments/${jibun.jibunId}`)
         );
 
         naver.maps.Event.addListener(marker, "mouseover", () => {
@@ -107,30 +109,32 @@ const NaverMapContainer = () => {
       }
     };
 
-    const zoomChangedListener = naver.maps.Event.addListener(
-      map,
-      "zoom_changed",
-      function () {
-        updateMarkers(map, markers);
-      }
-    );
+    // const zoomChangedListener = naver.maps.Event.addListener(
+    naver.maps.Event.addListener(map, "zoom_changed", function () {
+      updateMarkers(map, markers);
+    });
 
-    const dragendListener = naver.maps.Event.addListener(
-      map,
-      "dragend",
-      function () {
-        updateMarkers(map, markers);
-      }
-    );
+    // const dragendListener = naver.maps.Event.addListener(
+    naver.maps.Event.addListener(map, "dragend", function () {
+      updateMarkers(map, markers);
+    });
 
     fetchJibuns();
     setLoading(false);
+  }
+
+  useEffect(() => {
+    naver.maps.onJSContentLoaded = initGeocoder;
+
+    return () => {
+      initGeocoder();
+    };
 
     // 컴포넌트가 언마운트될 때 이벤트 리스너를 해제
-    return () => {
-      naver.maps.Event.removeListener(zoomChangedListener);
-      naver.maps.Event.removeListener(dragendListener);
-    };
+    // return () => {
+    //   naver.maps.Event.removeListener(zoomChangedListener);
+    //   naver.maps.Event.removeListener(dragendListener);
+    // };
   }, []);
 
   return (
