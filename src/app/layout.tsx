@@ -24,8 +24,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  info,
+  map,
 }: Readonly<{
   children: React.ReactNode;
+  info: React.ReactNode;
+  map: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -37,9 +41,14 @@ export default function RootLayout({
       </head>
       <CSPostHogProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
         >
           {children}
+
+          <main className="flex w-screen">
+            {info}
+            {map}
+          </main>
           <Analytics />
           <SpeedInsights />
         </body>
