@@ -35,7 +35,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script
-          strategy="beforeInteractive"
+          type="text/javascript"
+          // strategy="beforeInteractive"
           src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}&submodules=geocoder`}
         ></Script>
       </head>
