@@ -1,3 +1,5 @@
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export interface JibunSearchResponse {
   jibunId: number;
   jibunAddress: string;
@@ -43,7 +45,7 @@ export const searchByPoints = async (
   jibunIds.forEach((id) => url.append("jibunIds[]", id.toString()));
 
   const response = await fetch(
-    `http://localhost:8080/api/jibuns/search-by-utmk?${url.toString()}`,
+    `${SERVER_URL}/api/jibuns/search-by-utmk?${url.toString()}`,
     { signal }
   );
 
@@ -53,7 +55,7 @@ export const searchByPoints = async (
 };
 
 export const findJibunById = async (id: string) => {
-  const response = await fetch(`http://localhost:8080/api/jibuns/${id}`);
+  const response = await fetch(`${SERVER_URL}/api/jibuns/${id}`);
 
   const body: JibunSearchResponse = await response.json();
 
