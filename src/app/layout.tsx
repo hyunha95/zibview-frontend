@@ -6,15 +6,51 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CSPostHogProvider } from "./providers";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const pretendard = localFont({
+  variable: "--font-pretendard",
+  src: [
+    { path: "./fonts/Pretendard-Thin.woff2", weight: "100", style: "thin" },
+    {
+      path: "./fonts/Pretendard-ExtraLight.woff2",
+      weight: "200",
+      style: "extralight",
+    },
+    {
+      path: "./fonts/Pretendard-Light.woff2",
+      weight: "300",
+      style: "light",
+    },
+    {
+      path: "./fonts/Pretendard-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Pretendard-Medium.woff2",
+      weight: "500",
+      style: "medium",
+    },
+    {
+      path: "./fonts/Pretendard-SemiBold.woff2",
+      weight: "600",
+      style: "semibold",
+    },
+    {
+      path: "./fonts/Pretendard-Bold.woff2",
+      weight: "700",
+      style: "bold",
+    },
+    {
+      path: "./fonts/Pretendard-ExtraBold.woff2",
+      weight: "800",
+      style: "extrabold",
+    },
+    {
+      path: "./fonts/Pretendard-Black.woff2",
+      weight: "900",
+      style: "black",
+    },
+  ],
 });
 
 export const metadata: Metadata = {
@@ -41,9 +77,7 @@ export default function RootLayout({
         ></Script>
       </head>
       <CSPostHogProvider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
-        >
+        <body className={`${pretendard.variable} font-sans relative`}>
           {children}
 
           <main className="flex w-screen">
