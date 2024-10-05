@@ -3,9 +3,10 @@
 import { searchByPoints } from "@/lib/data";
 import {
   deleteNotShownJibuns,
-  makeMarkerHTML,
+  createMaker,
   updateMarkers,
 } from "@/lib/mapUtils";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 
 export type JibunRef = {
@@ -14,11 +15,13 @@ export type JibunRef = {
 };
 
 export default function NaverMap() {
+  const router = useRouter();
   const markersRef = useRef<naver.maps.Marker[]>([]);
   const jibunsRef = useRef<JibunRef[]>([]);
   const jibunIdsRef = useRef<number[]>([]);
 
   useEffect(() => {
+    // 지도 초기화
     const initMap = (lat: number, lng: number) => {
       const map = new naver.maps.Map("map", {
         center: new naver.maps.LatLng(lat, lng),
@@ -36,6 +39,7 @@ export default function NaverMap() {
       return idleListener;
     };
 
+    // 지도 이동 시 이벤트 핸들러
     const handleIdleEvent = async (map: naver.maps.Map) => {
       const bounds = map.getBounds();
 
@@ -47,6 +51,7 @@ export default function NaverMap() {
         new naver.maps.LatLng(bounds.getMax().y, bounds.getMax().x)
       );
 
+      // 지도에 보이는 지번을 검색
       const jibuns = await searchByPoints(
         minUTMK.x,
         minUTMK.y,
@@ -65,14 +70,8 @@ export default function NaverMap() {
         );
         const position = naver.maps.TransCoord.fromUTMKToLatLng(latlng);
 
-        const marker = new naver.maps.Marker({
-          map: map,
-          position: position,
-          icon: {
-            content: makeMarkerHTML(jibun),
-            anchor: new naver.maps.Point(0, 0),
-          },
-        });
+        // 마커 생성
+        const marker = createMaker(map, position, jibun, router);
 
         newJibunIds.push(jibun.jibunId);
         newMakers.push(marker);
@@ -86,6 +85,7 @@ export default function NaverMap() {
       updateMarkers(map, markersRef.current);
     };
 
+    // 지도 초기화
     const idleListener = initMap(37.3595704, 127.105399);
     return () => {
       naver.maps.Event.removeListener(idleListener);

@@ -1,5 +1,6 @@
 import { JibunRef } from "@/components/NaverMap";
 import { JibunSearchResponse } from "./data";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 /**
  * 지도에 보이는 마커를 업데이트합니다.
@@ -34,7 +35,64 @@ const hideMarker = (map: NaverMap, marker: NaverMarker) => {
   marker.setMap(null);
 };
 
-export const makeMarkerHTML = (jibun: JibunSearchResponse) => {
+/**
+ * 마커를 생성합니다.
+ * @param jibun
+ * @returns
+ */
+export const createMaker = (
+  map: naver.maps.Map,
+  position: naver.maps.LatLng,
+  jibun: JibunSearchResponse,
+  router: AppRouterInstance
+) => {
+  const marker = new naver.maps.Marker({
+    map: map,
+    position: position,
+    icon: {
+      content: createMarkerHTML(jibun),
+      anchor: new naver.maps.Point(0, 0),
+    },
+  });
+
+  // 마커에 클릭 이벤트 리스너 추가
+  naver.maps.Event.addListener(marker, "click", () =>
+    router.push(`/apartments/${jibun.jibunId}`)
+  );
+
+  // 마커에 마우스 오버 이벤트 리스너 추가
+  naver.maps.Event.addListener(marker, "mouseover", () => {
+    const style =
+      marker
+        .getElement()
+        .children[0].children[0].children[0].getAttribute("style")
+        ?.replace("opacity:0", "opacity:1") || "";
+
+    marker
+      .getElement()
+      .children[0].children[0].children[0].setAttribute("style", style);
+  });
+
+  // 마커에 마우스 아웃 이벤트 리스너 추가
+  naver.maps.Event.addListener(marker, "mouseout", () => {
+    const style =
+      marker
+        .getElement()
+        .children[0].children[0].children[0].getAttribute("style")
+        ?.replace("opacity:1", "opacity:0") || "";
+
+    marker
+      .getElement()
+      .children[0].children[0].children[0].setAttribute("style", style);
+  });
+
+  return marker;
+};
+
+/**
+ * 마커 HTML을 생성합니다.
+ */
+export const createMarkerHTML = (jibun: JibunSearchResponse) => {
   return `
   <div id="marker" style="position: relative; width: 70px; height: 70px;">
     <div style="z-index:9999; opacity:0; pointer-events:none; position: absolute; top: 0; left: 50%; transform: translate(-50%, -110%); background-color: white; border: 1px solid gray; border-radius: 9px; height: auto; width: max-content; padding: 4px 8px; display: flex; flex-direction: column; justify-content: center; text-align: center; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">

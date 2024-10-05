@@ -4,7 +4,7 @@ import { memo, useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import { useRouter } from "next/navigation";
 import { searchByPoints } from "@/lib/data";
-import { makeMarkerHTML, updateMarkers } from "@/lib/mapUtils";
+import { createMarkerHTML, updateMarkers } from "@/lib/mapUtils";
 
 type LatLng = {
   lat: number;
@@ -14,7 +14,7 @@ type LatLng = {
 const NaverMapContainer = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [markers, setMarkers] = useState<NaverMarker[]>([]); 
+  const [markers, setMarkers] = useState<NaverMarker[]>([]);
   const [latlng, setLatlng] = useState<LatLng>({
     lat: 37.3595704,
     lng: 127.105399,
@@ -72,7 +72,7 @@ const NaverMapContainer = () => {
       );
       const position = naver.maps.TransCoord.fromUTMKToLatLng(currentUtmk); // UTMK -> LatLng
 
-      const markerHTML = makeMarkerHTML(jibun);
+      const markerHTML = createMarkerHTML(jibun);
 
       const marker = new naver.maps.Marker({
         map: map,
