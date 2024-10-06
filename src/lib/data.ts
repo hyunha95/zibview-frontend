@@ -1,22 +1,6 @@
-const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+import { JibunResponse, JibunSearchResponse } from "./dataTypes";
 
-export interface JibunSearchResponse {
-  jibunId: number;
-  jibunAddress: string;
-  sidoName: string;
-  sggName: string;
-  emdName: string;
-  riName: string;
-  mountainYn: string;
-  jibunMain: number;
-  jibunSub: number;
-  buildingName: string;
-  legalDongCode: string;
-  xCoordinate: number;
-  yCoordinate: number;
-  exclusiveUseArea: number;
-  dealAmount: number;
-}
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 /**
  * utmk 좌표를 기준으로 주변의 지번을 검색합니다.
@@ -54,10 +38,13 @@ export const searchByPoints = async (
   return body;
 };
 
+/**
+ * 지번 ID로 지번을 검색합니다.
+ */
 export const findJibunById = async (id: string) => {
   const response = await fetch(`${SERVER_URL}/api/jibuns/${id}`);
 
-  const body: JibunSearchResponse = await response.json();
+  const body: JibunResponse = await response.json();
 
   return body || [];
 };
