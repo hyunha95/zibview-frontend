@@ -38,26 +38,35 @@ export interface JibunResponse {
   etcStructureName: string | null; // 기타 구조명
   earthquakeResistance: string | null; // 내진설계적용여부
   earthquakeResistanceAbility: string | null; // 내진능력
-  transactionApartments: [
+  pyungs: [
     {
       transactionApartmentId: number;
-      roadName: string;
-      legalDongName: string;
-      apartmentName: string;
-      jibunNumber: string;
       exclusiveUseArea: number;
       exclusiveUseAreaInPyung: number;
-      dealYear: number;
-      dealMonth: number;
-      dealDay: number;
-      dealAmountInOneHundredMillion: number; // 억 단위
+      dealAmountInOneHundredMillion: number;
       floor: number;
-      builtYear: string;
-      dealGbn: string;
-      estateAgentSggName: string;
-      apartmentDongName: string;
-      sellerGbn: string;
-      buyerGbn: string;
     }
   ];
+  // transactionApartments: [
+  //   {
+  //     transactionApartmentId: number;
+  //     roadName: string;
+  //     legalDongName: string;
+  //     apartmentName: string;
+  //     jibunNumber: string;
+  //     exclusiveUseArea: number;
+  //     exclusiveUseAreaInPyung: number;
+  //     dealYear: number;
+  //     dealMonth: number;
+  //     dealDay: number;
+  //     dealAmountInOneHundredMillion: number; // 억 단위
+  //     floor: number;
+  //     builtYear: string;
+  //     dealGbn: string;
+  //     estateAgentSggName: string;
+  //     apartmentDongName: string;
+  //     sellerGbn: string;
+  //     buyerGbn: string;
+  //   }
+  // ];
 }
