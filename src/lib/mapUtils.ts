@@ -57,7 +57,9 @@ export const createMaker = (
 
   // 마커에 클릭 이벤트 리스너 추가
   naver.maps.Event.addListener(marker, "click", () =>
-    router.push(`/apartments/${jibun.jibunId}`)
+    router.push(
+      `/apartments/${jibun.jibunId}/${jibun.buildingName}/${jibun.jibunAddress}`
+    )
   );
 
   // 마커에 마우스 오버 이벤트 리스너 추가
