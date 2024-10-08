@@ -1,3 +1,4 @@
+import LineChartLabel from "@/components/charts/LineChartLabel";
 import {
   Select,
   SelectContent,
@@ -31,8 +32,8 @@ export default async function ApartmentPage({
   return (
     <div>
       <div className="bg-orange-500 pb-2">
-        <h2 className="relative text-center font-semibold py-2 text-white tracking-wider">
-          <Link href="/" className="absolute left-0 top-1/2 -translate-y-1/2">
+        <h2 className="relative text-center font-semibold py-2 text-white tracking-wide">
+          <Link href="/" className="absolute left-2 top-1/2 -translate-y-1/2">
             <ArrowLeft strokeWidth={1.5} size={25} />
           </Link>
           {decodeURI(buildingName)}
@@ -65,6 +66,7 @@ export default async function ApartmentPage({
         <div></div>
         <div></div>
       </div>
+      <LineChartLabel />
     </div>
   );
 }
