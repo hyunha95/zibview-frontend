@@ -1,23 +1,21 @@
 "use client";
 
+import { mapState } from "@/atoms/mapAtom";
 import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
 
 type Props = {
   children: React.ReactNode;
 };
 
 export default function MapLayout({ children }: Props) {
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = useRecoilState(mapState);
 
   useEffect(() => {
     naver.maps.onJSContentLoaded = () => {
       setLoading(false);
     };
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  }, [loading]);
 
   return <>{children}</>;
 }

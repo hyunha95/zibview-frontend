@@ -1,5 +1,6 @@
 "use client";
 
+import { mapState } from "@/atoms/mapAtom";
 import { searchByPoints } from "@/lib/data";
 import {
   deleteNotShownJibuns,
@@ -8,6 +9,7 @@ import {
 } from "@/lib/mapUtils";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef } from "react";
+import { useRecoilState } from "recoil";
 
 export type JibunRef = {
   jibunId: number;
@@ -15,6 +17,7 @@ export type JibunRef = {
 };
 
 export default function NaverMap() {
+  const [loading, setLoading] = useRecoilState(mapState);
   const router = useRouter();
   const markersRef = useRef<naver.maps.Marker[]>([]);
   const jibunsRef = useRef<JibunRef[]>([]);
@@ -90,7 +93,7 @@ export default function NaverMap() {
     return () => {
       naver.maps.Event.removeListener(idleListener);
     };
-  }, []);
+  }, [loading]);
 
   return <div id="map" className="h-screen w-full"></div>;
 }

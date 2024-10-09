@@ -5,7 +5,9 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CSPostHogProvider } from "./providers";
+import RecoilProvider from "@/providers/RecoilProvider";
 
+// TODO variable로 변경
 const pretendard = localFont({
   variable: "--font-pretendard",
   src: [
@@ -55,7 +57,7 @@ const pretendard = localFont({
 
 export const metadata: Metadata = {
   title: "에브리데이 집뷰",
-  description: "we share information about real estate",
+  description: "We share information about real estate",
 };
 
 export default function RootLayout({
@@ -77,16 +79,17 @@ export default function RootLayout({
         ></Script>
       </head>
       <CSPostHogProvider>
-        <body className={`${pretendard.variable} font-sans relative`}>
-          {children}
-
-          <main className="flex w-screen">
-            {info}
-            {map}
-          </main>
-          <Analytics />
-          <SpeedInsights />
-        </body>
+        <RecoilProvider>
+          <body className={`${pretendard.variable} font-sans relative`}>
+            {children}
+            <main className="flex w-screen">
+              {info}
+              {map}
+            </main>
+            <Analytics />
+            <SpeedInsights />
+          </body>
+        </RecoilProvider>
       </CSPostHogProvider>
     </html>
   );

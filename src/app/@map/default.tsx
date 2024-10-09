@@ -1,5 +1,5 @@
-import NaverMapContainer from "@/components/NaverMapContainer";
+import NaverMap from "@/components/NaverMap";
 
 export default function Default() {
-  return <NaverMapContainer />;
+  return <NaverMap />;
 }
