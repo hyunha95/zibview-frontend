@@ -1,3 +1,4 @@
+import CustomLineChart from "@/components/charts/LineChart";
 import LineChartLabel from "@/components/charts/LineChartLabel";
 import {
   Select,
@@ -72,6 +73,7 @@ export default async function ApartmentPage({
         <div></div>
       </div>
       <LineChartLabel />
+      <CustomLineChart />
     </div>
   );
 }
