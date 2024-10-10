@@ -1,5 +1,10 @@
-import CustomLineChart from "@/components/charts/LineChart";
 import LineChartLabel from "@/components/charts/LineChartLabel";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import {
   Select,
   SelectContent,
@@ -23,13 +28,13 @@ type Props = {
 export default async function ApartmentPage({
   params: { jibunId, buildingName, jibunAddress },
 }: Props) {
-  const jibunResponse = await findJibunById(jibunId);
-  const pyungs = jibunResponse.pyungs;
+  const response = await findJibunById(jibunId);
+  const pyungs = response.pyungs;
   const placeholder =
     pyungs.length > 0
       ? `${pyungs[0].exclusiveUseAreaInPyung}평 (${pyungs[0].dealAmountInOneHundredMillion}억 ${pyungs[0].floor}층)`
       : "데이터가 없습니다.";
-  console.log(jibunResponse);
+  console.log(response);
 
   return (
     <div>
@@ -66,14 +71,18 @@ export default async function ApartmentPage({
           <Separator orientation="vertical" className="bg-white" />
         </div>
       </div>
-      <div className="flex">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+      <Accordion type="single" collapsible className="pl-4 pr-2">
+        <AccordionItem value="item-1">
+          <AccordionTrigger className="text-gray-500">
+            {response.houseHoldCount}세대
+          </AccordionTrigger>
+          <AccordionContent>
+            Yes. It adheres to the WAI-ARIA design pattern.
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
       <LineChartLabel />
-      <CustomLineChart />
     </div>
   );
 }
