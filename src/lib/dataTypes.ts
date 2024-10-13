@@ -19,6 +19,8 @@ export interface JibunSearchResponse {
 export interface JibunResponse {
   jibunId: number;
   apartmentName: string;
+  builtYear: string | null; // 준공년월
+  yearsSinceConstruction: number | null; // 준공 후 경과년수
   jibunAddress: string;
   roofName: string | null; // 지붕명
   etcRoofName: string | null; // 건축물대장 지붕 정보
@@ -47,26 +49,21 @@ export interface JibunResponse {
       floor: number;
     }
   ];
-  // transactionApartments: [
-  //   {
-  //     transactionApartmentId: number;
-  //     roadName: string;
-  //     legalDongName: string;
-  //     apartmentName: string;
-  //     jibunNumber: string;
-  //     exclusiveUseArea: number;
-  //     exclusiveUseAreaInPyung: number;
-  //     dealYear: number;
-  //     dealMonth: number;
-  //     dealDay: number;
-  //     dealAmountInOneHundredMillion: number; // 억 단위
-  //     floor: number;
-  //     builtYear: string;
-  //     dealGbn: string;
-  //     estateAgentSggName: string;
-  //     apartmentDongName: string;
-  //     sellerGbn: string;
-  //     buyerGbn: string;
-  //   }
-  // ];
+}
+
+export interface TransactionApartmentResponse {
+  transactionApartmentId: number;
+  exclusiveUseArea: number;
+  exclusiveUseAreaInPyung: number;
+  dealYear: number;
+  dealMonth: number;
+  dealDay: number;
+  dealAmountInOneHundredMillion: number; // 억 단위
+  floor: number;
+  builtYear: string;
+  dealGbn: string;
+  estateAgentSggName: string;
+  apartmentDongName: string;
+  sellerGbn: string;
+  buyerGbn: string;
 }

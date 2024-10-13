@@ -1,4 +1,8 @@
-import { JibunResponse, JibunSearchResponse } from "./dataTypes";
+import {
+  JibunResponse,
+  JibunSearchResponse,
+  TransactionApartmentResponse,
+} from "./dataTypes";
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -41,10 +45,23 @@ export const searchByPoints = async (
 /**
  * 지번 ID로 지번을 검색합니다.
  */
-export const findJibunById = async (id: string) => {
+export const fetchJibunById = async (id: string) => {
   const response = await fetch(`${SERVER_URL}/api/jibuns/${id}`);
 
   const body: JibunResponse = await response.json();
 
   return body || [];
+};
+
+export const fetchPastYearsTransactions = async (
+  jibunId: number,
+  fromYear: number,
+  exclusiveUseArea: number
+) => {
+  const response = await fetch(
+    `${SERVER_URL}/api/jibuns/${jibunId}/transactions?fromYear=${fromYear}&exclusiveUseArea=${exclusiveUseArea}`
+  );
+  const body: TransactionApartmentResponse = await response.json();
+
+  return body;
 };

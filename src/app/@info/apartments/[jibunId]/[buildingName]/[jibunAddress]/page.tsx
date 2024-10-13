@@ -13,9 +13,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { findJibunById } from "@/lib/data";
+import { fetchJibunById } from "@/lib/data";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import PyungAccordion from "./components/PyungAccordion";
+import { Suspense } from "react";
+import PyungChart from "./components/PyungChart";
 
 type Props = {
   params: {
@@ -28,12 +31,14 @@ type Props = {
 export default async function ApartmentPage({
   params: { jibunId, buildingName, jibunAddress },
 }: Props) {
-  const response = await findJibunById(jibunId);
-  const pyungs = response.pyungs;
+  const response = await fetchJibunById(jibunId);
+  const pyungs = response.pyungs || [];
   const placeholder =
-    pyungs.length > 0
+    pyungs && pyungs.length > 0
       ? `${pyungs[0].exclusiveUseAreaInPyung}평 (${pyungs[0].dealAmountInOneHundredMillion}억 ${pyungs[0].floor}층)`
       : "데이터가 없습니다.";
+
+  const exclusiveUseArea = pyungs[0].exclusiveUseAreaInPyung;
   console.log(response);
 
   return (
@@ -71,18 +76,14 @@ export default async function ApartmentPage({
           <Separator orientation="vertical" className="bg-white" />
         </div>
       </div>
-      <Accordion type="single" collapsible className="pl-4 pr-2">
-        <AccordionItem value="item-1">
-          <AccordionTrigger className="text-gray-500">
-            {response.houseHoldCount}세대
-          </AccordionTrigger>
-          <AccordionContent>
-            Yes. It adheres to the WAI-ARIA design pattern.
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+      <PyungAccordion data={response} />
 
-      <LineChartLabel />
+      <Suspense fallback={<div>Loading...</div>}>
+        <PyungChart
+          jibunId={response.jibunId}
+          exclusiveUseArea={exclusiveUseArea}
+        />
+      </Suspense>
     </div>
   );
 }
