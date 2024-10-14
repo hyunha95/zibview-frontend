@@ -1,10 +1,3 @@
-import LineChartLabel from "@/components/charts/LineChartLabel";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import {
   Select,
   SelectContent,
@@ -39,7 +32,6 @@ export default async function ApartmentPage({
       : "데이터가 없습니다.";
 
   const exclusiveUseArea = pyungs[0].exclusiveUseAreaInPyung;
-  console.log(response);
 
   return (
     <div>
@@ -76,7 +68,9 @@ export default async function ApartmentPage({
           <Separator orientation="vertical" className="bg-white" />
         </div>
       </div>
-      <PyungAccordion data={response} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <PyungAccordion jibunId={jibunId} />
+      </Suspense>
 
       <Suspense fallback={<div>Loading...</div>}>
         <PyungChart

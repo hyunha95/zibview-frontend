@@ -48,6 +48,8 @@ export const searchByPoints = async (
 export const fetchJibunById = async (id: string) => {
   const response = await fetch(`${SERVER_URL}/api/jibuns/${id}`);
 
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const body: JibunResponse = await response.json();
 
   return body || [];

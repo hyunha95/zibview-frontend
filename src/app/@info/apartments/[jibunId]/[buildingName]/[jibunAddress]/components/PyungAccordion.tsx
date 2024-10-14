@@ -4,17 +4,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { fetchJibunById } from "@/lib/data";
 import { JibunResponse } from "@/lib/dataTypes";
 import React from "react";
 
 type Props = {
-  data: JibunResponse;
+  jibunId: string;
 };
 
-export default function PyungAccordion({ data }: Props) {
+export default async function PyungAccordion({ jibunId }: Props) {
+  const data = await fetchJibunById(jibunId);
+
   return (
     <Accordion type="single" collapsible className="pl-4 pr-2">
-      <AccordionItem value="item-1">
+      <AccordionItem value="item-1" style={{ border: "none" }}>
         <AccordionTrigger className="text-gray-500">
           <span>{data.houseHoldCount}세대</span>
           <span>
