@@ -48,15 +48,20 @@ export const searchByPoints = async (
 export const fetchJibunById = async (id: string) => {
   const response = await fetch(`${SERVER_URL}/api/jibuns/${id}`);
 
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
   const body: JibunResponse = await response.json();
 
   return body || [];
 };
 
+/**
+ * 지번 ID로 과거 거래 내역을 검색합니다.
+ * @param jibunId
+ * @param fromYear
+ * @param exclusiveUseArea
+ * @returns
+ */
 export const fetchPastYearsTransactions = async (
-  jibunId: number,
+  jibunId: string,
   fromYear: number,
   exclusiveUseArea: number
 ) => {

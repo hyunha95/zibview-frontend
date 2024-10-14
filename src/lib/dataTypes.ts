@@ -53,6 +53,7 @@ export interface JibunResponse {
 
 export interface TransactionApartmentResponse {
   transactionApartmentId: number;
+  dealDate: string;
   exclusiveUseArea: number;
   exclusiveUseAreaInPyung: number;
   dealYear: number;

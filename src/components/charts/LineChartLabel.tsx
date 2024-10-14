@@ -16,6 +16,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useMemo, useState } from "react";
+import { TransactionApartmentResponse } from "@/lib/dataTypes";
 
 export const description = "An interactive bar chart";
 const chartData = [
@@ -122,7 +123,11 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function LineChartLabel() {
+type Props = {
+  transactionApartments: TransactionApartmentResponse[];
+};
+
+export default function LineChartLabel({ transactionApartments }: Props) {
   const [activeChart, setActiveChart] =
     useState<keyof typeof chartConfig>("desktop");
 

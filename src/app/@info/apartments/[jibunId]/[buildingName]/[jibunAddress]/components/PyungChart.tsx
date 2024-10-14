@@ -1,18 +1,17 @@
 import LineChartLabel from "@/components/charts/LineChartLabel";
-import { fetchPastYearsTransactions } from "@/lib/data";
+import { fetchJibunById, fetchPastYearsTransactions } from "@/lib/data";
 import React from "react";
 
 type Props = {
-  jibunId: number;
-
-  exclusiveUseArea: number;
+  jibunId: string;
 };
 
-export default async function PyungChart({
-  jibunId,
+export default async function PyungChart({ jibunId }: Props) {
+  const jibun = await fetchJibunById(jibunId);
+  const pyungs = jibun.pyungs || [];
+  const exclusiveUseArea =
+    pyungs && pyungs.length > 0 ? pyungs[0].exclusiveUseArea : 0;
 
-  exclusiveUseArea,
-}: Props) {
   const response = await fetchPastYearsTransactions(
     jibunId,
     new Date().getFullYear() - 2,

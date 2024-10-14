@@ -5,7 +5,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { fetchJibunById } from "@/lib/data";
-import { JibunResponse } from "@/lib/dataTypes";
 import React from "react";
 
 type Props = {
