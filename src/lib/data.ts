@@ -68,7 +68,7 @@ export const fetchPastYearsTransactions = async (
   const response = await fetch(
     `${SERVER_URL}/api/jibuns/${jibunId}/transactions?fromYear=${fromYear}&exclusiveUseArea=${exclusiveUseArea}`
   );
-  const body: TransactionApartmentResponse = await response.json();
+  const body: TransactionApartmentResponse[] = await response.json();
 
   return body;
 };

@@ -18,5 +18,5 @@ export default async function PyungChart({ jibunId }: Props) {
     exclusiveUseArea
   );
   console.log("response:", response);
-  return <LineChartLabel />;
+  return <LineChartLabel transactionApartments={response} />;
 }
