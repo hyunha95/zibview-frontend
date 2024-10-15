@@ -13,7 +13,7 @@ import { useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 
 export default function NaverMapLeftSide() {
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+  const plugin = useRef(Autoplay({ delay: 2000 }));
 
   return (
     <div className="p-4">
@@ -34,10 +34,13 @@ export default function NaverMapLeftSide() {
           검색어를 입력하세요.
         </Link>
       </div>
-
       <Carousel
+        opts={{
+          loop: true,
+          dragFree: false,
+        }}
         plugins={[plugin.current]}
-        className="w-full max-w-xs"
+        className="w-full"
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
         orientation="vertical"
