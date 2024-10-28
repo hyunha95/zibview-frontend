@@ -31,7 +31,8 @@
     "recharts": "^2.12.7",
     "recoil": "^0.7.7",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.0.2"
   },
   "devDependencies": {
     "@types/navermaps": "^3.7.8",
