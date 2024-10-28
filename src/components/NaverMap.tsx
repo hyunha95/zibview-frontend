@@ -60,7 +60,8 @@ export default function NaverMap() {
         minUTMK.y,
         maxUTMK.x,
         maxUTMK.y,
-        jibunIdsRef.current
+        jibunIdsRef.current,
+        map.getZoom()
       );
 
       const newMakers: naver.maps.Marker[] = [];

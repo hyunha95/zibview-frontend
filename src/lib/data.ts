@@ -15,7 +15,8 @@ export const searchByPoints = async (
   minY: number,
   maxX: number,
   maxY: number,
-  jibunIds: number[]
+  jibunIds: number[],
+  zoomLevel: number
 ) => {
   // 이전 요청이 있을 경우 취소
   if (currentController) {
@@ -31,6 +32,7 @@ export const searchByPoints = async (
   url.append("maxX", maxX.toString());
   url.append("maxY", maxY.toString());
   jibunIds.forEach((id) => url.append("jibunIds[]", id.toString()));
+  url.append("zoomLevel", zoomLevel.toString());
 
   const response = await fetch(
     `${SERVER_URL}/api/jibuns/search-by-utmk?${url.toString()}`,
