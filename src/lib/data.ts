@@ -16,7 +16,8 @@ export const searchByPoints = async (
   maxX: number,
   maxY: number,
   jibunIds: number[],
-  zoomLevel: number
+  zoomLevel: number,
+  anonymousUserUUID: string
 ) => {
   // 이전 요청이 있을 경우 취소
   if (currentController) {
@@ -33,10 +34,11 @@ export const searchByPoints = async (
   url.append("maxY", maxY.toString());
   jibunIds.forEach((id) => url.append("jibunIds[]", id.toString()));
   url.append("zoomLevel", zoomLevel.toString());
+  url.append("anonymousUserUUID", anonymousUserUUID);
 
   const response = await fetch(
     `${SERVER_URL}/api/jibuns/search-by-utmk?${url.toString()}`,
-    { signal }
+    { signal, credentials: "include" }
   );
 
   const body: JibunSearchResponse[] = await response.json();

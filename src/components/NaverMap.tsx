@@ -1,6 +1,7 @@
 "use client";
 
 import { mapState } from "@/atoms/mapAtom";
+import { setCookie } from "@/lib/cookieUtils";
 import { searchByPoints } from "@/lib/data";
 import {
   deleteNotShownJibuns,
@@ -8,7 +9,7 @@ import {
   updateMarkers,
 } from "@/lib/mapUtils";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 
 export type JibunRef = {
@@ -16,7 +17,11 @@ export type JibunRef = {
   position: naver.maps.LatLng;
 };
 
-export default function NaverMap() {
+type Props = {
+  anonymousUserUUID: string;
+};
+
+export default function NaverMap({ anonymousUserUUID }: Props) {
   const [loading, setLoading] = useRecoilState(mapState);
   const router = useRouter();
   const markersRef = useRef<naver.maps.Marker[]>([]);
@@ -61,7 +66,8 @@ export default function NaverMap() {
         maxUTMK.x,
         maxUTMK.y,
         jibunIdsRef.current,
-        map.getZoom()
+        map.getZoom(),
+        anonymousUserUUID
       );
 
       const newMakers: naver.maps.Marker[] = [];
@@ -85,7 +91,10 @@ export default function NaverMap() {
       jibunIdsRef.current = [...jibunIdsRef.current, ...newJibunIds];
       markersRef.current = [...markersRef.current, ...newMakers];
       jibunsRef.current = [...jibunsRef.current, ...newJibuns];
-      deleteNotShownJibuns(map, jibunsRef.current);
+      const deletedJibunIds = deleteNotShownJibuns(map, jibunsRef.current);
+      jibunIdsRef.current = jibunIdsRef.current.filter(
+        (id) => !deletedJibunIds.includes(id)
+      );
       updateMarkers(map, markersRef.current);
     };
 

@@ -1,7 +1,15 @@
 import NaverMap from "@/components/NaverMap";
 
 export default async function MapPage() {
-  await fetch("http://localhost:8080/api/auth/anonymous/cookies");
+  const fetchCookies = async () => {
+    const response = await fetch(
+      "http://localhost:8080/api/auth/anonymous/cookies"
+    );
+    const body = await response.json();
+    return body;
+  };
 
-  return <NaverMap />;
+  const { anonymousUserUUID } = await fetchCookies();
+
+  return <NaverMap anonymousUserUUID={anonymousUserUUID} />;
 }

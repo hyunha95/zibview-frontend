@@ -114,12 +114,16 @@ export const deleteNotShownJibuns = (map: NaverMap, jibuns: JibunRef[]) => {
   const mapBounds = map.getBounds() as naver.maps.LatLngBounds;
   let jibun, position;
 
+  const deletedJibunIds: number[] = [];
   for (let i = 0; i < jibuns.length; i++) {
     jibun = jibuns[i];
     position = jibun.position;
 
     if (!mapBounds.hasLatLng(position)) {
-      jibuns.splice(i, 1);
+      const jibunRef = jibuns.splice(i, 1)[0];
+      deletedJibunIds.push(jibunRef.jibunId);
     }
   }
+
+  return deletedJibunIds;
 };
