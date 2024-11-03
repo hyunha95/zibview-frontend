@@ -1,7 +1,6 @@
 "use client";
 
 import { mapState } from "@/atoms/mapAtom";
-import { setCookie } from "@/lib/cookieUtils";
 import { searchByPoints } from "@/lib/data";
 import {
   deleteNotShownJibuns,
@@ -9,7 +8,7 @@ import {
   updateMarkers,
 } from "@/lib/mapUtils";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 
 export type JibunRef = {
@@ -22,29 +21,26 @@ type Props = {
 };
 
 export default function NaverMap({ anonymousUserUUID }: Props) {
-  const [loading, setLoading] = useRecoilState(mapState);
   const router = useRouter();
   const markersRef = useRef<naver.maps.Marker[]>([]);
   const jibunsRef = useRef<JibunRef[]>([]);
   const jibunIdsRef = useRef<number[]>([]);
 
   useEffect(() => {
+    console.log("useEffect")
     // 지도 초기화
     const initMap = (lat: number, lng: number) => {
       const map = new naver.maps.Map("map", {
         center: new naver.maps.LatLng(lat, lng),
         zoom: 15,
       });
+      handleIdleEvent(map)
 
-      // 지도가 로드된 후 마커를 표시
-      naver.maps.Event.addListener(map, "tilesloaded", () => {
-        handleIdleEvent(map);
-      });
-
-      const idleListener = naver.maps.Event.addListener(map, "idle", async () =>
+      map.addListener("idle", async() => {
         handleIdleEvent(map)
-      );
-      return idleListener;
+      })
+
+      return map;
     };
 
     // 지도 이동 시 이벤트 핸들러
@@ -65,7 +61,6 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
         minUTMK.y,
         maxUTMK.x,
         maxUTMK.y,
-        jibunIdsRef.current,
         map.getZoom(),
         anonymousUserUUID
       );
@@ -99,11 +94,12 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
     };
 
     // 지도 초기화
-    const idleListener = initMap(37.3595704, 127.105399);
+    const mapInstance = initMap(37.3595704, 127.105399);
     return () => {
-      naver.maps.Event.removeListener(idleListener);
+      naver.maps.Event.clearListeners(mapInstance, 'tilesloaded');
+      naver.maps.Event.clearListeners(mapInstance, 'idle');
     };
-  }, [loading]);
+  }, []);
 
   return <div id="map" className="h-screen w-full"></div>;
 }

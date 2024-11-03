@@ -15,10 +15,11 @@ export const searchByPoints = async (
   minY: number,
   maxX: number,
   maxY: number,
-  jibunIds: number[],
   zoomLevel: number,
   anonymousUserUUID: string
 ) => {
+  console.log("requested api")
+
   // 이전 요청이 있을 경우 취소
   if (currentController) {
     currentController.abort();
@@ -32,7 +33,6 @@ export const searchByPoints = async (
   url.append("minY", minY.toString());
   url.append("maxX", maxX.toString());
   url.append("maxY", maxY.toString());
-  jibunIds.forEach((id) => url.append("jibunIds[]", id.toString()));
   url.append("zoomLevel", zoomLevel.toString());
   url.append("anonymousUserUUID", anonymousUserUUID);
 

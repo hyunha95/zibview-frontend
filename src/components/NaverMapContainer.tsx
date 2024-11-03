@@ -60,7 +60,6 @@ const NaverMapContainer = () => {
       utmk?.y,
       utmkLngSpan,
       utmkLatSpan,
-      registeredJibunIds
     );
 
     setJibunIds((prev) => [...prev, ...jibuns?.map((jibun) => jibun.jibunId)]);

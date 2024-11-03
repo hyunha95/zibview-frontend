@@ -9,13 +9,13 @@ type Props = {
 };
 
 export default function MapLayout({ children }: Props) {
-  const [loading, setLoading] = useRecoilState(mapState);
+  // const [loading, setLoading] = useRecoilState(mapState);
 
-  useEffect(() => {
-    naver.maps.onJSContentLoaded = () => {
-      setLoading(false);
-    };
-  }, [loading]);
+  // useEffect(() => {
+  //   naver.maps.onJSContentLoaded = () => {
+  //     setLoading(false);
+  //   };
+  // }, [loading]);
 
   return <>{children}</>;
 }
