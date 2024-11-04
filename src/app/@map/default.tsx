@@ -1,15 +1,16 @@
-// import NaverMap from "@/components/NaverMap";
+import NaverMap from "@/components/NaverMap";
 
-// export default async function Default() {
-//   const fetchCookies = async () => {
-//     const response = await fetch(
-//       "http://localhost:8080/api/auth/anonymous/cookies"
-//     );
-//     const body = await response.json();
-//     return body;
-//   };
+export default async function Default() {
+  const fetchCookies = async () => {
+    const response = await fetch(
+      "http://localhost:8080/api/auth/anonymous/cookies",
+      { cache: "no-store" }
+    );
+    const body = await response.json();
+    return body;
+  };
 
-//   const { anonymousUserUUID } = await fetchCookies();
+  const { anonymousUserUUID } = await fetchCookies();
 
-//   return <NaverMap anonymousUserUUID={anonymousUserUUID} />;
-// }
+  return <NaverMap anonymousUserUUID={anonymousUserUUID} />;
+}
