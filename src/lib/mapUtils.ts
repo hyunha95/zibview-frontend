@@ -5,20 +5,27 @@ import { JibunSearchResponse } from "./dataTypes";
 /**
  * 지도에 보이는 마커를 업데이트합니다.
  */
-export const updateMarkers = (map: NaverMap, markers: NaverMarker[]) => {
+export const updateMarkers = (map: NaverMap, markers: Set<NaverMarker>) => {
   const mapBounds = map.getBounds() as naver.maps.LatLngBounds;
-  let marker, position;
 
-  for (let i = 0; i < markers.length; i++) {
-    marker = markers[i];
-    position = marker.getPosition();
+  markers.forEach((marker) => {
+    const position = marker.getPosition();
 
     if (mapBounds.hasLatLng(position)) {
       showMarker(map, marker);
     } else {
       hideMarker(map, marker);
     }
-  }
+  });
+  // for (const marker of markers.) {
+  //   const position = marker.getPosition();
+
+  //   if (mapBounds.hasLatLng(position)) {
+  //     showMarker(map, marker);
+  //   } else {
+  //     hideMarker(map, marker);
+  //   }
+  // }
 };
 
 /**
@@ -47,6 +54,7 @@ export const createMaker = (
   router: AppRouterInstance
 ) => {
   const marker = new naver.maps.Marker({
+    title: jibun.jibunId.toString(),
     map: map,
     position: position,
     icon: {

@@ -7,6 +7,7 @@ import {
   createMaker,
   updateMarkers,
 } from "@/lib/mapUtils";
+import { SetWithContentEquality } from "@/lib/set";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
@@ -21,24 +22,26 @@ type Props = {
 };
 
 export default function NaverMap({ anonymousUserUUID }: Props) {
+  console.log("anonymousUserUUID", anonymousUserUUID);
+
   const router = useRouter();
-  const markersRef = useRef<naver.maps.Marker[]>([]);
-  const jibunsRef = useRef<JibunRef[]>([]);
-  const jibunIdsRef = useRef<number[]>([]);
+  const markersRef = useRef<SetWithContentEquality<naver.maps.Marker>>(
+    new SetWithContentEquality<naver.maps.Marker>((marker) => marker.getTitle())
+  );
 
   useEffect(() => {
-    console.log("useEffect")
+    console.log("useEffect");
     // 지도 초기화
     const initMap = (lat: number, lng: number) => {
       const map = new naver.maps.Map("map", {
         center: new naver.maps.LatLng(lat, lng),
         zoom: 15,
       });
-      handleIdleEvent(map)
+      handleIdleEvent(map);
 
-      map.addListener("idle", async() => {
-        handleIdleEvent(map)
-      })
+      map.addListener("idle", async () => {
+        handleIdleEvent(map);
+      });
 
       return map;
     };
@@ -64,10 +67,6 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
         map.getZoom(),
         anonymousUserUUID
       );
-
-      const newMakers: naver.maps.Marker[] = [];
-      const newJibunIds: number[] = [];
-      const newJibuns: JibunRef[] = [];
       for (const jibun of jibuns) {
         const latlng = new naver.maps.LatLng(
           jibun.yCoordinate,
@@ -77,27 +76,19 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
 
         // 마커 생성
         const marker = createMaker(map, position, jibun, router);
-
-        newJibunIds.push(jibun.jibunId);
-        newMakers.push(marker);
-        newJibuns.push({ jibunId: jibun.jibunId, position });
+        if (!markersRef.current.has(marker)) {
+          markersRef.current.add(marker);
+        }
       }
 
-      jibunIdsRef.current = [...jibunIdsRef.current, ...newJibunIds];
-      markersRef.current = [...markersRef.current, ...newMakers];
-      jibunsRef.current = [...jibunsRef.current, ...newJibuns];
-      const deletedJibunIds = deleteNotShownJibuns(map, jibunsRef.current);
-      jibunIdsRef.current = jibunIdsRef.current.filter(
-        (id) => !deletedJibunIds.includes(id)
-      );
-      updateMarkers(map, markersRef.current);
+      updateMarkers(map, new Set(markersRef.current.values()));
     };
 
     // 지도 초기화
     const mapInstance = initMap(37.3595704, 127.105399);
     return () => {
-      naver.maps.Event.clearListeners(mapInstance, 'tilesloaded');
-      naver.maps.Event.clearListeners(mapInstance, 'idle');
+      naver.maps.Event.clearListeners(mapInstance, "tilesloaded");
+      naver.maps.Event.clearListeners(mapInstance, "idle");
     };
   }, []);
 

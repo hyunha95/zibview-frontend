@@ -1,9 +1,3 @@
-"use client";
-
-import { mapState } from "@/atoms/mapAtom";
-import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
-
 type Props = {
   children: React.ReactNode;
 };
