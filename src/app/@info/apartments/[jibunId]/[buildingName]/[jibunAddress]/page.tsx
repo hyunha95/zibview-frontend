@@ -20,7 +20,7 @@ export default async function ApartmentPage({
   return (
     <div>
       <div className="bg-orange-500">
-        <h2 className="relative text-center font-semibold py-2 text-white tracking-wide">
+        <h2 className="relative text-center font-semibold py-2 text-white tracking-wide text-lg">
           <Link href="/" className="absolute left-2 top-1/2 -translate-y-1/2">
             <ArrowLeft strokeWidth={1.5} size={25} />
           </Link>
@@ -31,9 +31,9 @@ export default async function ApartmentPage({
           {decodeURI(jibunAddress)}
         </h3>
 
-        <div className="h-10 border-t border-white flex items-center">
+        <div className="h-10 border-t border-orange-100/50 flex items-center">
           <PyungSelect jibunId={jibunId} />
-          <Separator orientation="vertical" className="bg-white" />
+          <Separator orientation="vertical" className="bg-orange-100/50" />
         </div>
       </div>
       <Suspense fallback={<div>Loading...</div>}>

@@ -2,6 +2,12 @@ import LineChartLabel from "@/components/charts/LineChartLabel";
 import { fetchJibunById, fetchPastYearsTransactions } from "@/lib/data";
 import React from "react";
 
+export type ChartData = {
+  dealDate: string;
+  averageAmount: string;
+  volume: number;
+};
+
 type Props = {
   jibunId: string;
 };
@@ -17,6 +23,30 @@ export default async function PyungChart({ jibunId }: Props) {
     new Date().getFullYear() - 2,
     exclusiveUseArea
   );
-  console.log("response:", response);
-  return <LineChartLabel transactionApartments={response} />;
+
+  console.log("response", response);
+  const dealDateSet = new Set(response.map((item) => item.dealDate));
+  const dealDates = Array.from(dealDateSet).sort(
+    (a, b) => new Date(a).getTime() - new Date(b).getTime()
+  );
+
+  const chartData = dealDates.map((date) => {
+    return {
+      dealDate: date,
+      averageAmount: (
+        response
+          .filter((item) => item.dealDate === date)
+          .map((item) => item.dealAmountInOneHundredMillion)
+          .reduce((acc, cur) => acc + cur, 0) /
+        response.filter((item) => item.dealDate === date).length
+      ).toFixed(2),
+      volume: response.filter((item) => item.dealDate === date).length,
+    };
+  }) as ChartData[];
+
+  console.log("dealDates", dealDates);
+  console.log("chartData", chartData);
+
+  return <LineChartLabel chartData={chartData} />;
+  // transactionApartments={response}
 }
