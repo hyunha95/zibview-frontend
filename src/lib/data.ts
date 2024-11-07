@@ -3,6 +3,7 @@ import {
   JibunSearchResponse,
   TransactionApartmentResponse,
 } from "./dataTypes";
+import { sleep } from "./utils";
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -18,7 +19,7 @@ export const searchByPoints = async (
   zoomLevel: number,
   anonymousUserUUID: string
 ) => {
-  console.log("requested api")
+  console.log("requested api");
 
   // 이전 요청이 있을 경우 취소
   if (currentController) {
@@ -50,6 +51,7 @@ export const searchByPoints = async (
  * 지번 ID로 지번을 검색합니다.
  */
 export const fetchJibunById = async (id: string) => {
+  await sleep(10000);
   const response = await fetch(`${SERVER_URL}/api/jibuns/${id}`);
 
   const body: JibunResponse = await response.json();
