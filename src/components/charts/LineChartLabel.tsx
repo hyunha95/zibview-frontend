@@ -118,10 +118,13 @@ export default function LineChartLabel({ chartData }: Props) {
   // );
 
   return (
-    <ResponsiveContainer width="100%" height={200}>
+    <ResponsiveContainer
+      width="100%"
+      height={200}
+      className="p-0"
+      style={{ backgroundColor: "red" }}
+    >
       <LineChart
-        width={730}
-        height={250}
         data={chartData}
         margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
       >
@@ -130,8 +133,13 @@ export default function LineChartLabel({ chartData }: Props) {
         <YAxis fontSize={12} tickFormatter={(tick) => `${tick}억`} />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="averageAmount" stroke="#8884d8" />
-        <Line type="monotone" dataKey="volume" stroke="#82ca9d" />
+        <Line
+          type="monotone"
+          dataKey="averageAmount"
+          name="평균 거래가"
+          stroke="#8884d8"
+        />
+        <Line type="monotone" dataKey="volume" name="거래량" stroke="#82ca9d" />
       </LineChart>
     </ResponsiveContainer>
   );

@@ -24,7 +24,6 @@ export default async function PyungChart({ jibunId }: Props) {
     exclusiveUseArea
   );
 
-  console.log("response", response);
   const dealDateSet = new Set(response.map((item) => item.dealDate));
   const dealDates = Array.from(dealDateSet).sort(
     (a, b) => new Date(a).getTime() - new Date(b).getTime()
