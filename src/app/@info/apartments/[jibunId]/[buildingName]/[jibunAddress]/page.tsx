@@ -44,7 +44,7 @@ export default async function ApartmentPage({
         <PyungAccordion jibunId={jibunId} />
       </Suspense>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<PyungSelectSkeleton />}>
         <PyungChart jibunId={jibunId} />
       </Suspense>
     </div>

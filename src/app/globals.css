@@ -76,3 +76,8 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* rechart legend font size */
+.recharts-legend-item {
+  font-size: 0.875rem;
+}
