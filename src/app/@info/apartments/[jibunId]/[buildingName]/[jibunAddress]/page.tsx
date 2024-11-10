@@ -5,9 +5,8 @@ import PyungAccordion from "./components/PyungAccordion";
 import { Suspense } from "react";
 import PyungChart from "./components/PyungChart";
 import PyungSelect from "./components/PyungSelect";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
 import PyungSelectSkeleton from "./components/PyungSelectSkeleton";
+import PyungAccordionSelector from "./components/PyungAccordionSelector";
 
 type Props = {
   params: {
@@ -41,7 +40,7 @@ export default async function ApartmentPage({
           <Separator orientation="vertical" className="bg-white" />
         </div>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<PyungAccordionSelector />}>
         <PyungAccordion jibunId={jibunId} />
       </Suspense>
 

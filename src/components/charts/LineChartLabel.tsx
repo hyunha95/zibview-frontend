@@ -6,6 +6,7 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  ComposedChart,
   Legend,
   Line,
   LineChart,
@@ -118,29 +119,35 @@ export default function LineChartLabel({ chartData }: Props) {
   // );
 
   return (
-    <ResponsiveContainer
-      width="100%"
-      height={200}
-      className="p-0"
-      style={{ backgroundColor: "red" }}
-    >
-      <LineChart
-        data={chartData}
-        margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
-      >
+    <ResponsiveContainer width={420} height={200} className="-m-5 mt-1">
+      <ComposedChart data={chartData} className="p-0 m-0">
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="dealDate" fontSize={12} />
-        <YAxis fontSize={12} tickFormatter={(tick) => `${tick}억`} />
+        <XAxis dataKey="dealDate" fontSize={10} />
+        <YAxis
+          yAxisId="left"
+          fontSize={10}
+          tickFormatter={(tick) => `${tick}억`}
+        />
+        <YAxis yAxisId="right" fontSize={10} orientation="right" />
         <Tooltip />
-        <Legend />
+        <Legend fontSize={10} />
+
+        <Bar
+          yAxisId="right"
+          type="monotone"
+          dataKey="volume"
+          name="거래량"
+          fill="#82ca9d"
+        />
         <Line
+          yAxisId="left"
           type="monotone"
           dataKey="averageAmount"
           name="평균 거래가"
           stroke="#8884d8"
+          dot={false}
         />
-        <Line type="monotone" dataKey="volume" name="거래량" stroke="#82ca9d" />
-      </LineChart>
+      </ComposedChart>
     </ResponsiveContainer>
   );
 }

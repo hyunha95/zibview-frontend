@@ -43,9 +43,5 @@ export default async function PyungChart({ jibunId }: Props) {
     };
   }) as ChartData[];
 
-  console.log("dealDates", dealDates);
-  console.log("chartData", chartData);
-
   return <LineChartLabel chartData={chartData} />;
-  // transactionApartments={response}
 }

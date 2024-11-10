@@ -51,7 +51,7 @@ export const searchByPoints = async (
  * 지번 ID로 지번을 검색합니다.
  */
 export const fetchJibunById = async (id: string) => {
-  await sleep(10000);
+  // await sleep(10000);
   const response = await fetch(`${SERVER_URL}/api/jibuns/${id}`);
 
   const body: JibunResponse = await response.json();
