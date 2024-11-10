@@ -7,6 +7,7 @@ import PyungChart from "./components/PyungChart";
 import PyungSelect from "./components/PyungSelect";
 import PyungSelectSkeleton from "./components/PyungSelectSkeleton";
 import PyungAccordionSelector from "./components/PyungAccordionSelector";
+import PyungChartSkeleton from "./components/PyungChartSkeleton";
 
 type Props = {
   params: {
@@ -44,7 +45,7 @@ export default async function ApartmentPage({
         <PyungAccordion jibunId={jibunId} />
       </Suspense>
 
-      <Suspense fallback={<PyungSelectSkeleton />}>
+      <Suspense fallback={<PyungChartSkeleton />}>
         <PyungChart jibunId={jibunId} />
       </Suspense>
     </div>
