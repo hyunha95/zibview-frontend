@@ -1,43 +1,42 @@
 import { Separator } from "@/components/ui/separator";
+import { NaverNewsResponse } from "@/lib/dataTypes";
+import customFetch from "@/lib/fetch";
 import Link from "next/link";
-import React from "react";
+import React, { Fragment } from "react";
 
-export default function News() {
+export default async function News() {
+  const searchParams = new URLSearchParams();
+  searchParams.append("query", "경기도 성남시");
+  searchParams.append("display", "3");
+  searchParams.append("start", Math.floor(Math.random() * 1000) + 1 + "");
+
+  const data = await customFetch(
+    "/api/news/naver" + "?" + searchParams.toString(),
+    { cache: "no-store" }
+  );
+  const newsList: NaverNewsResponse = await data.json();
+
   return (
     <>
       <div className="w-full border rounded-md">
-        <Link href="#" className="inline-block p-3 space-y-2">
-          <h4 className="text-sm font-semibold leading-4">
-            왜 우리집은 안 오르지?"…서울 집값, '여기'만 오른다[복덕방기자들]
-          </h4>
-          <div className="flex items-center h-3 space-x-2 text-sm">
-            <span className="text-gray-500 text-xs">이데일리</span>
-            <Separator orientation="vertical" />
-            <span className="text-gray-500 text-xs">18일 전</span>
-          </div>
-        </Link>
-        <Separator className="w-11/12 mx-auto" />
-        <Link href="#" className="inline-block p-3 space-y-2">
-          <h4 className="text-sm font-semibold leading-4">
-            왜 우리집은 안 오르지?"…서울 집값, '여기'만 오른다[복덕방기자들]
-          </h4>
-          <div className="flex items-center h-3 space-x-2 text-sm">
-            <span className="text-gray-500 text-xs">이데일리</span>
-            <Separator orientation="vertical" />
-            <span className="text-gray-500 text-xs">18일 전</span>
-          </div>
-        </Link>
-        <Separator className="w-11/12 mx-auto" />
-        <Link href="#" className="inline-block p-3 space-y-2">
-          <h4 className="text-sm font-semibold leading-4">
-            왜 우리집은 안 오르지?"…서울 집값, '여기'만 오른다[복덕방기자들]
-          </h4>
-          <div className="flex items-center h-3 space-x-2 text-sm">
-            <span className="text-gray-500 text-xs">이데일리</span>
-            <Separator orientation="vertical" />
-            <span className="text-gray-500 text-xs">18일 전</span>
-          </div>
-        </Link>
+        {newsList.items.map((item, index) => (
+          <Fragment key={index}>
+            <Link href="#" className="inline-block p-3 space-y-2">
+              <h4
+                className="text-sm font-semibold leading-4"
+                dangerouslySetInnerHTML={{ __html: item.title }}
+              ></h4>
+              <div className="flex items-center h-3 space-x-2 text-sm">
+                <span className="text-gray-500 text-xs">이데일리</span>
+                <Separator orientation="vertical" />
+                <span className="text-gray-500 text-xs">18일 전</span>
+              </div>
+            </Link>
+            {index !== newsList.items.length - 1 && (
+              <Separator className="w-11/12 mx-auto" />
+            )}
+          </Fragment>
+        ))}
       </div>
       <Link href="#" className="px-4 py-1 mx-auto text-sm border rounded-full">
         경기도 판교 뉴스 더보기

@@ -1,3 +1,4 @@
+import { description } from "./../components/charts/LineChartLabel";
 export interface JibunSearchResponse {
   jibunId: number;
   jibunAddress: string;
@@ -67,4 +68,20 @@ export interface TransactionApartmentResponse {
   apartmentDongName: string;
   sellerGbn: string;
   buyerGbn: string;
+}
+
+export interface NaverNewsResponse {
+  lastBuildDate: string;
+  total: number;
+  start: number;
+  display: number;
+  items: [
+    {
+      title: string;
+      originallink: string;
+      link: string;
+      description: string;
+      pubDate: string;
+    }
+  ];
 }
