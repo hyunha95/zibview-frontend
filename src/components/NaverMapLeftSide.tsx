@@ -1,3 +1,4 @@
+import Menu from "@/app/@info/components/Menu";
 import News from "@/app/@info/components/News";
 import RealTimeRanking from "@/app/@info/components/RealTimeRanking";
 import Search from "@/app/@info/components/Search";
@@ -7,12 +8,8 @@ export default function NaverMapLeftSide() {
   return (
     <div className="p-4 grid gap-y-3">
       <div className="flex justify-between">
-        <div>
-          <AlignJustify />
-        </div>
-        <div>
-          <Bell />
-        </div>
+        <Menu />
+        <Bell />
       </div>
       <Search />
       <RealTimeRanking />
