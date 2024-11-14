@@ -43,5 +43,9 @@ export default async function PyungChart({ jibunId }: Props) {
     };
   }) as ChartData[];
 
-  return <LineChartLabel chartData={chartData} />;
+  return (
+    <>
+      <LineChartLabel chartData={chartData} />
+    </>
+  );
 }

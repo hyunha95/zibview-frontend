@@ -20,6 +20,12 @@ import {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
+import { motion } from "motion/react";
+
+let tabs = [
+  { id: "threeYears", label: "최근 3년" },
+  { id: "wholeYear", label: "전체 기간" },
+];
 
 export const description = "An interactive bar chart";
 const chartConfig = {
@@ -64,32 +70,60 @@ export default function LineChartLabel({ chartData }: Props) {
   const [activeChart, setActiveChart] =
     useState<keyof typeof chartConfig>("desktop");
 
-  return (
-    <ResponsiveContainer width={420} height={200} className="-m-5 mt-1">
-      <ComposedChart data={chartData} className="p-0 m-0">
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="dealDate" fontSize={10} />
-        <YAxis yAxisId="left" fontSize={10} unit="억" />
-        <YAxis yAxisId="right" fontSize={10} orientation="right" unit="건" />
-        <Tooltip content={<CustomTooltip />} />
-        <Legend iconSize={10} style={{ fontSize: "0.75rem" }} />
+  const [activeTab, setActiveTab] = useState(tabs[0].id);
 
-        <Bar
-          yAxisId="right"
-          type="monotone"
-          dataKey="volume"
-          name="거래량"
-          fill="#82ca9d"
-        />
-        <Line
-          yAxisId="left"
-          type="monotone"
-          dataKey="averageAmount"
-          name="평균 거래가"
-          stroke="#8884d8"
-          dot={false}
-        />
-      </ComposedChart>
-    </ResponsiveContainer>
+  return (
+    <>
+      {/* <div className="flex space-x-1">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`${
+              activeTab === tab.id ? "" : "hover:text-black/60"
+            } relative px-3 py-1.5 text-sm font-medium outline-sky-400 transition focus-visible:outline-2 w-1/2`}
+            style={{
+              WebkitTapHighlightColor: "transparent",
+            }}
+          >
+            {activeTab === tab.id && (
+              <motion.span
+                layoutId="underline"
+                className="absolute w-full py-3 border-b-2 border-orange-400 "
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
+            {tab.label}
+          </button>
+        ))}
+      </div> */}
+
+      <ResponsiveContainer width={420} height={200} className="-m-5 mt-1">
+        <ComposedChart data={chartData} className="p-0 m-0">
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="dealDate" fontSize={10} />
+          <YAxis yAxisId="left" fontSize={10} unit="억" />
+          <YAxis yAxisId="right" fontSize={10} orientation="right" unit="건" />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend iconSize={10} style={{ fontSize: "0.75rem" }} />
+
+          <Bar
+            yAxisId="right"
+            type="monotone"
+            dataKey="volume"
+            name="거래량"
+            fill="#82ca9d"
+          />
+          <Line
+            yAxisId="left"
+            type="monotone"
+            dataKey="averageAmount"
+            name="평균 거래가"
+            stroke="#8884d8"
+            dot={false}
+          />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </>
   );
 }

@@ -23,6 +23,7 @@
     "embla-carousel-autoplay": "^8.3.0",
     "embla-carousel-react": "^8.3.0",
     "lucide-react": "^0.447.0",
+    "motion": "^11.11.15",
     "next": "14.2.13",
     "posthog-js": "^1.165.0",
     "react": "^18",

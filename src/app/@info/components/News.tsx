@@ -15,13 +15,18 @@ export default async function News() {
     { cache: "no-store" }
   );
   const newsList: NaverNewsResponse = await data.json();
+  console.log(newsList);
 
   return (
     <>
       <div className="w-full border rounded-md">
         {newsList.items.map((item, index) => (
           <Fragment key={index}>
-            <Link href="#" className="inline-block p-3 space-y-2">
+            <a
+              href={item.link}
+              className="inline-block p-3 space-y-2"
+              target="_blank"
+            >
               <h4
                 className="text-sm font-semibold leading-4"
                 dangerouslySetInnerHTML={{ __html: item.title }}
@@ -31,7 +36,7 @@ export default async function News() {
                 <Separator orientation="vertical" />
                 <span className="text-gray-500 text-xs">18일 전</span>
               </div>
-            </Link>
+            </a>
             {index !== newsList.items.length - 1 && (
               <Separator className="w-11/12 mx-auto" />
             )}
