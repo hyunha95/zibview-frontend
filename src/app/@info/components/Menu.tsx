@@ -17,9 +17,7 @@ export default function Menu() {
       <DropdownMenuContent sideOffset={5} align="start">
         <DropdownMenuLabel className="text-orange-500">설정</DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-orange-200" />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
+
         <DropdownMenuItem>자유게시판</DropdownMenuItem>
         <DropdownMenuSeparator className="bg-orange-200" />
         <DropdownMenuItem>

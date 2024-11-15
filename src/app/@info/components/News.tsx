@@ -7,7 +7,7 @@ import React, { Fragment } from "react";
 export default async function News() {
   const searchParams = new URLSearchParams();
   searchParams.append("query", "경기도 성남시");
-  searchParams.append("display", "3");
+  searchParams.append("display", "5");
   searchParams.append("start", Math.floor(Math.random() * 1000) + 1 + "");
 
   const data = await customFetch(
@@ -15,7 +15,6 @@ export default async function News() {
     { cache: "no-store" }
   );
   const newsList: NaverNewsResponse = await data.json();
-  console.log(newsList);
 
   return (
     <>
