@@ -1,16 +1,13 @@
 "use client";
 
-import { mapState } from "@/atoms/mapAtom";
 import { searchByPoints } from "@/lib/data";
 import {
-  deleteNotShownJibuns,
   createMaker,
   updateMarkers,
 } from "@/lib/mapUtils";
 import { SetWithContentEquality } from "@/lib/set";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef } from "react";
-import { useRecoilState } from "recoil";
 
 export type JibunRef = {
   jibunId: number;
@@ -22,15 +19,12 @@ type Props = {
 };
 
 export default function NaverMap({ anonymousUserUUID }: Props) {
-  console.log("anonymousUserUUID", anonymousUserUUID);
-
   const router = useRouter();
   const markersRef = useRef<SetWithContentEquality<naver.maps.Marker>>(
     new SetWithContentEquality<naver.maps.Marker>((marker) => marker.getTitle())
   );
 
   useEffect(() => {
-    console.log("useEffect");
     // 지도 초기화
     const initMap = (lat: number, lng: number) => {
       const map = new naver.maps.Map("map", {
@@ -49,6 +43,7 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
     // 지도 이동 시 이벤트 핸들러
     const handleIdleEvent = async (map: naver.maps.Map) => {
       const bounds = map.getBounds();
+
 
       const minUTMK = naver.maps.TransCoord.fromLatLngToUTMK(
         new naver.maps.LatLng(bounds.getMin().y, bounds.getMin().x)

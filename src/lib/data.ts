@@ -55,7 +55,6 @@ export const fetchJibunById = async (id: string) => {
   const response = await fetch(`${SERVER_URL}/api/jibuns/${id}`);
 
   const body: JibunResponse = await response.json();
-
   return body || {};
 };
 
