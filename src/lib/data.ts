@@ -56,7 +56,7 @@ export const fetchJibunById = async (id: string) => {
 
   const body: JibunResponse = await response.json();
 
-  return body || [];
+  return body || {};
 };
 
 /**
