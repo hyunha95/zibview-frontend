@@ -77,3 +77,15 @@ export const fetchPastYearsTransactions = async (
 
   return body;
 };
+
+/**
+ * anonymousUserUUID를 조회하여 쿠키에 세팅
+ */
+export const fetchCookies = async () => {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_SERVER_URL + "/api/auth/anonymous/cookies",
+    { cache: "no-store" }
+  );
+  const body = await response.json();
+  return body;
+};

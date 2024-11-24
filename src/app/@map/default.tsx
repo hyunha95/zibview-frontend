@@ -1,16 +1,43 @@
+"use client";
+
 import NaverMap from "@/components/NaverMap";
+import { Skeleton } from "@/components/ui/skeleton";
+import { fetchCookies } from "@/lib/data";
+import Script from "next/script";
+import { useEffect, useState } from "react";
 
-export default async function Default() {
-  const fetchCookies = async () => {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + "/api/auth/anonymous/cookies",
-      { cache: "no-store" }
+export default function Default() {
+  const [anonymousUserUUID, setAnonymousUserUUID] = useState<string | null>(
+    null
+  );
+
+  useEffect(() => {
+    // 컴포넌트 마운트 시 쿠키를 가져옴
+    const getAnonymousUserUUID = async () => {
+      const data = await fetchCookies();
+      if (data?.anonymousUserUUID) {
+        setAnonymousUserUUID(data.anonymousUserUUID);
+      }
+    };
+
+    getAnonymousUserUUID();
+  }, []);
+
+  // 로딩 중 처리
+  if (!anonymousUserUUID) {
+    return (
+      <Skeleton className="flex justify-center items-center w-full h-screen rounded-none bg-gradient-to-br from-orange-400 from-10% via-orange-300 via-30% to-orange-200 to-90%"></Skeleton>
     );
-    const body = await response.json();
-    return body;
-  };
+  }
 
-  const { anonymousUserUUID } = await fetchCookies();
-
-  return <NaverMap anonymousUserUUID={anonymousUserUUID} />;
+  return (
+    <>
+      <Script
+        type="text/javascript"
+        strategy="beforeInteractive"
+        src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}&submodules=geocoder`}
+      ></Script>
+      <NaverMap anonymousUserUUID={anonymousUserUUID} />
+    </>
+  );
 }

@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CSPostHogProvider } from "./providers";
 import RecoilProvider from "@/providers/RecoilProvider";
+import { useEffect } from "react";
 
 // TODO variable로 변경
 const pretendard = localFont({

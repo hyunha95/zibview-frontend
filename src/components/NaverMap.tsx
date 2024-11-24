@@ -1,13 +1,11 @@
 "use client";
 
 import { searchByPoints } from "@/lib/data";
-import {
-  createMaker,
-  updateMarkers,
-} from "@/lib/mapUtils";
+import { createMaker, updateMarkers } from "@/lib/mapUtils";
 import { SetWithContentEquality } from "@/lib/set";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef } from "react";
+import Cookies from "js-cookie";
 
 export type JibunRef = {
   jibunId: number;
@@ -24,12 +22,21 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
     new SetWithContentEquality<naver.maps.Marker>((marker) => marker.getTitle())
   );
 
+  // anonymousUserUUID 쿠키에 추가
+  Cookies.set("anonymousUserUUID", anonymousUserUUID, { expires: 1 });
+
   useEffect(() => {
     // 지도 초기화
     const initMap = (lat: number, lng: number) => {
       const map = new naver.maps.Map("map", {
         center: new naver.maps.LatLng(lat, lng),
         zoom: 15,
+        minZoom: 15,
+        zoomControl: true, // Indicates whether a zoom control is displayed.
+        zoomControlOptions: {
+          // Zoom control options
+          position: naver.maps.Position.TOP_RIGHT,
+        },
       });
       handleIdleEvent(map);
 
@@ -43,7 +50,6 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
     // 지도 이동 시 이벤트 핸들러
     const handleIdleEvent = async (map: naver.maps.Map) => {
       const bounds = map.getBounds();
-
 
       const minUTMK = naver.maps.TransCoord.fromLatLngToUTMK(
         new naver.maps.LatLng(bounds.getMin().y, bounds.getMin().x)
@@ -87,5 +93,9 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
     };
   }, []);
 
-  return <div id="map" className="h-screen w-full"></div>;
+  return (
+    <>
+      <div id="map" className="h-screen w-full"></div>;
+    </>
+  );
 }
