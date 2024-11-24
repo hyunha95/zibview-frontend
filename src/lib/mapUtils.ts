@@ -1,6 +1,6 @@
+import { JibunSearchResponse } from "@/api/dataTypes";
 import { JibunRef } from "@/components/NaverMap";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { JibunSearchResponse } from "./dataTypes";
 
 /**
  * 지도에 보이는 마커를 업데이트합니다.
