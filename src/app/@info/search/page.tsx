@@ -11,8 +11,9 @@ export default function SearchPage() {
       <div className="col-span-8">
         <input
           type="text"
+          autoFocus
           placeholder="검색어를 입력하세요."
-          className="w-full pl-2 text-lg font-semibold outline-none placeholder:text-gray-400"
+          className="w-full pl-2 text-base outline-none placeholder:text-gray-400"
         />
       </div>
       <div className="col-span-1">
