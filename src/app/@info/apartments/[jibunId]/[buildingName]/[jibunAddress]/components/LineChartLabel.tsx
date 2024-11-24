@@ -20,7 +20,6 @@ import {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
-import { motion } from "motion/react";
 
 let tabs = [
   { id: "threeYears", label: "최근 3년" },
