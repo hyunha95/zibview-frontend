@@ -71,17 +71,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <script
+      {/* <script
         type="text/javascript"
         // strategy="beforeInteractive"
         async={false}
         src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}&submodules=geocoder`}
-      ></script>
-      <head></head>
+      ></script> */}
+      <head>
+        <script
+          type="text/javascript"
+          // strategy="beforeInteractive"
+          async={false}
+          src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}&submodules=geocoder`}
+        ></script>
+      </head>
       <CSPostHogProvider>
         <RecoilProvider>
-          <ReactQueryProviders>
-            <body className={`${pretendard.variable} font-sans relative`}>
+          <body className={`${pretendard.variable} font-sans relative`}>
+            <ReactQueryProviders>
               {children}
               <main className="flex w-screen">
                 {info}
@@ -89,8 +96,8 @@ export default function RootLayout({
               </main>
               <Analytics />
               <SpeedInsights />
-            </body>
-          </ReactQueryProviders>
+            </ReactQueryProviders>
+          </body>
         </RecoilProvider>
       </CSPostHogProvider>
     </html>
