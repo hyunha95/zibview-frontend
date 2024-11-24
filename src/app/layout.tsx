@@ -72,14 +72,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <Script
-          type="text/javascript"
-          // strategy="beforeInteractive"
-          async={false}
-          src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}&submodules=geocoder`}
-        ></Script>
-      </head>
+      <Script
+        type="text/javascript"
+        // strategy="beforeInteractive"
+        async={false}
+        src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}&submodules=geocoder`}
+      ></Script>
+      <head></head>
       <CSPostHogProvider>
         <RecoilProvider>
           <body className={`${pretendard.variable} font-sans relative`}>
