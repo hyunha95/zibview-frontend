@@ -1,11 +1,11 @@
 "use client";
 
-import { searchByPoints } from "@/lib/data";
 import { createMaker, updateMarkers } from "@/lib/mapUtils";
 import { SetWithContentEquality } from "@/lib/set";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 import Cookies from "js-cookie";
+import { searchByPoints } from "@/api/data";
 
 export type JibunRef = {
   jibunId: number;

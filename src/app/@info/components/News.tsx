@@ -1,6 +1,6 @@
+import { NaverNewsResponse } from "@/api/dataTypes";
+import customFetch from "@/api/fetch";
 import { Separator } from "@/components/ui/separator";
-import { NaverNewsResponse } from "@/lib/dataTypes";
-import customFetch from "@/lib/fetch";
 import Link from "next/link";
 import React, { Fragment } from "react";
 

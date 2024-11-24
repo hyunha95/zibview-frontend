@@ -1,3 +1,4 @@
+import { fetchJibunById } from "@/api/data";
 import {
   Select,
   SelectContent,
@@ -5,7 +6,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { fetchJibunById } from "@/lib/data";
 import React from "react";
 
 type Props = {

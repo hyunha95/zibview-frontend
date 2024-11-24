@@ -3,7 +3,7 @@ import {
   JibunSearchResponse,
   TransactionApartmentResponse,
 } from "./dataTypes";
-import { sleep } from "./utils";
+import customFetch from "./fetch";
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -37,8 +37,8 @@ export const searchByPoints = async (
   url.append("zoomLevel", zoomLevel.toString());
   url.append("anonymousUserUUID", anonymousUserUUID);
 
-  const response = await fetch(
-    `${SERVER_URL}/api/jibuns/search-by-utmk?${url.toString()}`,
+  const response = await customFetch(
+    `/api/jibuns/search-by-utmk?${url.toString()}`,
     { signal, credentials: "include" }
   );
 
@@ -52,7 +52,7 @@ export const searchByPoints = async (
  */
 export const fetchJibunById = async (id: string) => {
   // await sleep(10000);
-  const response = await fetch(`${SERVER_URL}/api/jibuns/${id}`);
+  const response = await customFetch(`/api/jibuns/${id}`);
 
   const body: JibunResponse = await response.json();
   return body || {};
@@ -70,8 +70,8 @@ export const fetchPastYearsTransactions = async (
   fromYear: number,
   exclusiveUseArea: number
 ) => {
-  const response = await fetch(
-    `${SERVER_URL}/api/jibuns/${jibunId}/transactions?fromYear=${fromYear}&exclusiveUseArea=${exclusiveUseArea}`
+  const response = await customFetch(
+    `/api/jibuns/${jibunId}/transactions?fromYear=${fromYear}&exclusiveUseArea=${exclusiveUseArea}`
   );
   const body: TransactionApartmentResponse[] = await response.json();
 
@@ -82,10 +82,9 @@ export const fetchPastYearsTransactions = async (
  * anonymousUserUUID를 조회하여 쿠키에 세팅
  */
 export const fetchCookies = async () => {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_SERVER_URL + "/api/auth/anonymous/cookies",
-    { cache: "no-store" }
-  );
+  const response = await customFetch("/api/auth/anonymous/cookies", {
+    cache: "no-store",
+  });
   const body = await response.json();
   return body;
 };

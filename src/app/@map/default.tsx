@@ -1,8 +1,8 @@
 "use client";
 
+import { fetchCookies } from "@/api/data";
 import NaverMap from "@/components/NaverMap";
 import { Skeleton } from "@/components/ui/skeleton";
-import { fetchCookies } from "@/lib/data";
 import Script from "next/script";
 import { useEffect, useState } from "react";
 

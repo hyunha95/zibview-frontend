@@ -2,7 +2,7 @@ import Menu from "@/app/@info/components/Menu";
 import News from "@/app/@info/components/News";
 import RealTimeRanking from "@/app/@info/components/RealTimeRanking";
 import Search from "@/app/@info/components/Search";
-import { AlignJustify, Bell } from "lucide-react";
+import { Bell } from "lucide-react";
 
 export default function NaverMapLeftSide() {
   return (

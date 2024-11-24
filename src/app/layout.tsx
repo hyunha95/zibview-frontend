@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CSPostHogProvider } from "./providers";
 import RecoilProvider from "@/providers/RecoilProvider";
-import { useEffect } from "react";
+import ReactQueryProviders from "@/providers/ReactQueryProvider";
 
 // TODO variable로 변경
 const pretendard = localFont({
@@ -81,15 +80,17 @@ export default function RootLayout({
       <head></head>
       <CSPostHogProvider>
         <RecoilProvider>
-          <body className={`${pretendard.variable} font-sans relative`}>
-            {children}
-            <main className="flex w-screen">
-              {info}
-              {map}
-            </main>
-            <Analytics />
-            <SpeedInsights />
-          </body>
+          <ReactQueryProviders>
+            <body className={`${pretendard.variable} font-sans relative`}>
+              {children}
+              <main className="flex w-screen">
+                {info}
+                {map}
+              </main>
+              <Analytics />
+              <SpeedInsights />
+            </body>
+          </ReactQueryProviders>
         </RecoilProvider>
       </CSPostHogProvider>
     </html>

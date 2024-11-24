@@ -1,6 +1,6 @@
-import { fetchJibunById, fetchPastYearsTransactions } from "@/lib/data";
 import React from "react";
 import LineChartLabel from "./LineChartLabel";
+import { fetchJibunById, fetchPastYearsTransactions } from "@/api/data";
 
 export type ChartData = {
   dealDate: string;

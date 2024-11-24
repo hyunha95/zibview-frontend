@@ -1,10 +1,10 @@
+import { fetchJibunById } from "@/api/data";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { fetchJibunById } from "@/lib/data";
 import React from "react";
 
 type Props = {
