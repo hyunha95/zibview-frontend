@@ -72,32 +72,10 @@ export default function LineChartLabel({ chartData }: Props) {
 
   const [activeTab, setActiveTab] = useState(tabs[0].id);
 
+  console.log("chartData", chartData);
+
   return (
     <>
-      {/* <div className="flex space-x-1">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`${
-              activeTab === tab.id ? "" : "hover:text-black/60"
-            } relative px-3 py-1.5 text-sm font-medium outline-sky-400 transition focus-visible:outline-2 w-1/2`}
-            style={{
-              WebkitTapHighlightColor: "transparent",
-            }}
-          >
-            {activeTab === tab.id && (
-              <motion.span
-                layoutId="underline"
-                className="absolute w-full py-3 border-b-2 border-orange-400 "
-                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-              />
-            )}
-            {tab.label}
-          </button>
-        ))}
-      </div> */}
-
       <ResponsiveContainer width={420} height={200} className="-m-5 mt-1">
         <ComposedChart data={chartData} className="p-0 m-0">
           <CartesianGrid strokeDasharray="3 3" />
@@ -112,13 +90,17 @@ export default function LineChartLabel({ chartData }: Props) {
             type="monotone"
             dataKey="volume"
             name="거래량"
+            max={Math.max(...chartData.map((item) => item.volume))}
             fill="#82ca9d"
           />
           <Line
             yAxisId="left"
+            max={Math.max(
+              ...chartData.map((item) => Number(item.averageAmount))
+            )}
             type="monotone"
             dataKey="averageAmount"
-            name="평균 거래가"
+            name="거래가"
             stroke="#8884d8"
             dot={false}
           />

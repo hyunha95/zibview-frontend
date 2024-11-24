@@ -1,4 +1,4 @@
-import { description } from "./../components/charts/LineChartLabel";
+import { description } from "../app/@info/apartments/[jibunId]/[buildingName]/[jibunAddress]/components/LineChartLabel";
 export interface JibunSearchResponse {
   jibunId: number;
   jibunAddress: string;

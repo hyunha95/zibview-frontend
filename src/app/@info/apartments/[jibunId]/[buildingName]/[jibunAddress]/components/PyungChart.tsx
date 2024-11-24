@@ -1,4 +1,4 @@
-import LineChartLabel from "@/components/charts/LineChartLabel";
+import LineChartLabel from "@/app/@info/apartments/[jibunId]/[buildingName]/[jibunAddress]/components/LineChartLabel";
 import { fetchJibunById, fetchPastYearsTransactions } from "@/lib/data";
 import React from "react";
 
