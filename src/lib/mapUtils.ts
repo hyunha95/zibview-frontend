@@ -70,6 +70,11 @@ export const createMaker = (
     )
   );
 
+  // 클릭 시 센터로 이동
+  naver.maps.Event.addListener(marker, "click", () => {
+    map.panTo(position);
+  });
+
   // 마커에 마우스 오버 이벤트 리스너 추가
   naver.maps.Event.addListener(marker, "mouseover", () => {
     const style =
