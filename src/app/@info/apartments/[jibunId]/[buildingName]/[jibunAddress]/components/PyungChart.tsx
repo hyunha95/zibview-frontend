@@ -1,6 +1,6 @@
-import LineChartLabel from "@/app/@info/apartments/[jibunId]/[buildingName]/[jibunAddress]/components/LineChartLabel";
 import { fetchJibunById, fetchPastYearsTransactions } from "@/lib/data";
 import React from "react";
+import LineChartLabel from "./LineChartLabel";
 
 export type ChartData = {
   dealDate: string;

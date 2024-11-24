@@ -13,13 +13,13 @@ import {
   YAxis,
 } from "recharts";
 
-import { ChartData } from "@/app/@info/apartments/[jibunId]/[buildingName]/[jibunAddress]/components/PyungChart";
 import { ChartConfig } from "@/components/ui/chart";
 import { useState } from "react";
 import {
   NameType,
   ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
+import { ChartData } from "./PyungChart";
 
 let tabs = [
   { id: "threeYears", label: "최근 3년" },

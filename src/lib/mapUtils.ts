@@ -17,15 +17,6 @@ export const updateMarkers = (map: NaverMap, markers: Set<NaverMarker>) => {
       hideMarker(map, marker);
     }
   });
-  // for (const marker of markers.) {
-  //   const position = marker.getPosition();
-
-  //   if (mapBounds.hasLatLng(position)) {
-  //     showMarker(map, marker);
-  //   } else {
-  //     hideMarker(map, marker);
-  //   }
-  // }
 };
 
 /**
@@ -66,7 +57,7 @@ export const createMaker = (
   // 마커에 클릭 이벤트 리스너 추가
   naver.maps.Event.addListener(marker, "click", () =>
     router.push(
-      `/apartments/${jibun.jibunId}/${jibun.buildingName}/${jibun.jibunAddress}`
+      `/apartments/${jibun.jibunId}/${jibun.buildingName}/${jibun.jibunAddress}?lat=${position.y}&lon=${position.x}`
     )
   );
 
