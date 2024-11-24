@@ -26,7 +26,7 @@ export default function Default() {
   // 로딩 중 처리
   if (!anonymousUserUUID) {
     return (
-      <Skeleton className="flex justify-center items-center w-full h-screen rounded-none bg-gradient-to-br from-orange-400 from-10% via-orange-300 via-30% to-orange-200 to-90%"></Skeleton>
+      <Skeleton className="flex justify-center items-center w-full h-screen rounded-none bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></Skeleton>
     );
   }
 
