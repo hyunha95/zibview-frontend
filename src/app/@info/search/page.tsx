@@ -1,6 +1,21 @@
 "use client";
 
 import { search } from "@/api/search";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Search } from "lucide-react";
 import Link from "next/link";
@@ -38,10 +53,12 @@ export default function SearchPage() {
       {data?.searchHits?.map((item, index) => (
         <div
           key={item.content.id}
-          className="w-full border-b border-gray-200 py-2 px-4"
+          className="w-full border-b border-gray-200 py-2 px-6"
         >
-          <p className="">{item.content.buildingName}</p>
-          <p className="text-sm text-gray-500">{item.content.address}</p>
+          <p className="text-sm">{item.content.buildingNameSearchAsYouType}</p>
+          <p className="text-sm text-gray-500">
+            {item.content.dongNameWithBuildingName}
+          </p>
         </div>
       ))}
     </>

@@ -9,15 +9,12 @@ export interface SearchResponse {
       index: string;
       score: number;
       content: {
-        address: string;
-        addressKeyword: string;
-        addressNgrams: string;
-        addressSearchAsYouType: string;
+        id: number;
         buildingName: string;
         buildingNameKeyword: string;
         buildingNameNgrams: string;
         buildingNameSearchAsYouType: string;
-        id: string;
+        dongNameWithBuildingName: string;
       };
     }
   ];
