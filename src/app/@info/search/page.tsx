@@ -42,6 +42,7 @@ export default function SearchPage() {
             type="text"
             autoFocus
             placeholder="검색어를 입력하세요."
+            value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full pl-2 text-base outline-none placeholder:text-gray-400"
           />

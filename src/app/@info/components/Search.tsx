@@ -21,23 +21,23 @@ export default function Search() {
     setQuery(e.target.value);
   };
 
-  const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    e.preventDefault(); // 브라우저 기본 동작 방지
-    e.stopPropagation(); // 이벤트 전파 차단
+  // const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   e.preventDefault(); // 브라우저 기본 동작 방지
+  //   e.stopPropagation(); // 이벤트 전파 차단
 
-    if (e.key === "ArrowUp") {
-      if (selectedIndex > 0) {
-        setSelectedIndex((prev) => prev - 1);
-      }
-    }
+  //   if (e.key === "ArrowUp") {
+  //     if (selectedIndex > 0) {
+  //       setSelectedIndex((prev) => prev - 1);
+  //     }
+  //   }
 
-    if (e.key === "ArrowDown") {
-      if (selectedIndex < data?.searchHits?.length! - 1) {
-        console.log("arrow down");
-        setSelectedIndex((prev) => prev + 1);
-      }
-    }
-  };
+  //   if (e.key === "ArrowDown") {
+  //     if (selectedIndex < data?.searchHits?.length! - 1) {
+  //       console.log("arrow down");
+  //       setSelectedIndex((prev) => prev + 1);
+  //     }
+  //   }
+  // };
 
   return (
     <div className="relative z-50">
@@ -56,19 +56,25 @@ export default function Search() {
           placeholder="검색어를 입력하세요."
           value={query}
           onChange={inputHandler}
-          onKeyDown={keyDownHandler}
+          // onKeyDown={keyDownHandler}
           className="w-full mx-2 text-base outline-none placeholder:text-gray-400"
         />
       </div>
       <ul
         className={clsx(
-          "absolute top-14 w-full bg-white border-t rounded-b-3xl p-2",
+          "shadow-md shadow-slate-400 block absolute top-14 w-full bg-white border-t rounded-b-3xl p-2",
           {
-            "shadow-md  shadow-slate-400 block": open,
             hidden: !open,
           }
         )}
       >
+        {!data?.searchHits?.length && (
+          <li className="py-10 px-2 flex gap-x-2 rounded-3xl">
+            <span className="text-sm mx-auto">
+              최근 검색어 내역이 없습니다.
+            </span>
+          </li>
+        )}
         {data?.searchHits?.map((item, index) => (
           <li
             className={clsx(
