@@ -4,6 +4,7 @@ import { search } from "@/api/search";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { Search as SearchIcon } from "lucide-react";
+import Link from "next/link";
 import React, { useState } from "react";
 
 export default function Search() {
@@ -15,6 +16,8 @@ export default function Search() {
     queryKey: ["search", query],
     queryFn: () => search(query),
   });
+
+  console.log("data", data);
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedIndex(-1);
@@ -51,7 +54,7 @@ export default function Search() {
         <input
           type="text"
           onFocus={() => setOpen(true)}
-          onBlur={() => setOpen(false)}
+          // onBlur={() => setOpen(false)}
           onClick={() => setOpen(true)}
           placeholder="검색어를 입력하세요."
           value={query}
@@ -76,24 +79,22 @@ export default function Search() {
           </li>
         )}
         {data?.searchHits?.map((item, index) => (
-          <li
-            className={clsx(
-              "py-2 px-2 flex gap-x-2 rounded-3xl hover:bg-slate-100"
-              // {
-              //   "bg-slate-100": selectedIndex === index,
-              // }
-            )}
-          >
-            <div className="relative h-6 w-6 bg-slate-200 rounded-full">
-              <SearchIcon
-                size={15}
-                color="#94a3b8"
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-              />
-            </div>
-            <span className="text-sm">
-              {item.content.dongNameWithBuildingName}
-            </span>
+          <li>
+            <Link
+              href={`/apartments/${item.content.managementNo}`}
+              className="py-2 px-2 flex gap-x-2 rounded-3xl hover:bg-slate-100"
+            >
+              <div className="relative h-6 w-6 bg-slate-200 rounded-full">
+                <SearchIcon
+                  size={15}
+                  color="#94a3b8"
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                />
+              </div>
+              <span className="text-sm">
+                {item.content.dongNameWithBuildingName}
+              </span>
+            </Link>
           </li>
         ))}
       </ul>

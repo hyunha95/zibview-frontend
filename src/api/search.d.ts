@@ -9,7 +9,8 @@ export interface SearchResponse {
       index: string;
       score: number;
       content: {
-        id: number;
+        additionalInfoId: number;
+        managementNo: string;
         buildingName: string;
         buildingNameKeyword: string;
         buildingNameNgrams: string;

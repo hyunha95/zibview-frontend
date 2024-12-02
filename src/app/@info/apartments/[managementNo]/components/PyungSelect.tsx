@@ -1,4 +1,4 @@
-import { fetchJibunById } from "@/api/data";
+import { fetchJibunByManagementNo } from "@/api/data";
 import {
   Select,
   SelectContent,
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default async function PyungSelect({ jibunId }: Props) {
-  const response = await fetchJibunById(jibunId);
+  const response = await fetchJibunByManagementNo(jibunId);
   const pyungs = response.pyungs || [];
   const placeholder =
     pyungs && pyungs.length > 0

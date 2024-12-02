@@ -1,6 +1,9 @@
 import React from "react";
 import LineChartLabel from "./LineChartLabel";
-import { fetchJibunById, fetchPastYearsTransactions } from "@/api/data";
+import {
+  fetchJibunByManagementNo,
+  fetchPastYearsTransactions,
+} from "@/api/data";
 
 export type ChartData = {
   dealDate: string;
@@ -13,13 +16,15 @@ type Props = {
 };
 
 export default async function PyungChart({ jibunId }: Props) {
-  const jibun = await fetchJibunById(jibunId);
+  const jibun = await fetchJibunByManagementNo(jibunId);
   const pyungs = jibun.pyungs || [];
   const exclusiveUseArea =
     pyungs && pyungs.length > 0 ? pyungs[0].exclusiveUseArea : 0;
 
+  console.log("jibun", jibun);
+
   const response = await fetchPastYearsTransactions(
-    jibunId,
+    jibun.jibunId.toString(),
     new Date().getFullYear() - 2,
     exclusiveUseArea
   );

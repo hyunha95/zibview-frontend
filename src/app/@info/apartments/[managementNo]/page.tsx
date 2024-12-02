@@ -8,18 +8,21 @@ import PyungSelect from "./components/PyungSelect";
 import PyungSelectSkeleton from "./components/PyungSelectSkeleton";
 import PyungAccordionSelector from "./components/PyungAccordionSelector";
 import PyungChartSkeleton from "./components/PyungChartSkeleton";
+import { fetchJibunByManagementNo } from "@/api/data";
 
 type Props = {
   params: {
-    jibunId: string;
-    buildingName: string;
-    jibunAddress: string;
+    managementNo: string;
   };
 };
 
 export default async function ApartmentPage({
-  params: { jibunId, buildingName, jibunAddress },
+  params: { managementNo },
 }: Props) {
+  const response = await fetchJibunByManagementNo(managementNo);
+
+  console.log("response", response);
+
   return (
     <div>
       <div className="bg-orange-500">
@@ -27,26 +30,26 @@ export default async function ApartmentPage({
           <Link href="/" className="absolute left-2 top-1/2 -translate-y-1/2">
             <ArrowLeft strokeWidth={1.5} size={25} />
           </Link>
-          {decodeURI(buildingName)}
+          {response.apartmentName}
         </h2>
 
         <h3 className="text-center text-sm text-white mb-2">
-          {decodeURI(jibunAddress)}
+          {response.jibunAddress}
         </h3>
 
         <div className="h-10 border-t border-white flex items-center">
           <Suspense fallback={<PyungSelectSkeleton />}>
-            <PyungSelect jibunId={jibunId} />
+            <PyungSelect jibunId={managementNo} />
           </Suspense>
           <Separator orientation="vertical" className="bg-white" />
         </div>
       </div>
       <Suspense fallback={<PyungAccordionSelector />}>
-        <PyungAccordion jibunId={jibunId} />
+        <PyungAccordion jibunId={managementNo} />
       </Suspense>
 
       <Suspense fallback={<PyungChartSkeleton />}>
-        <PyungChart jibunId={jibunId} />
+        <PyungChart jibunId={managementNo} />
       </Suspense>
     </div>
   );

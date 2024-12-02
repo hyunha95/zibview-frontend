@@ -1,4 +1,4 @@
-import { fetchJibunById } from "@/api/data";
+import { fetchJibunByManagementNo } from "@/api/data";
 import {
   Accordion,
   AccordionContent,
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default async function PyungAccordion({ jibunId }: Props) {
-  const data = await fetchJibunById(jibunId);
+  const data = await fetchJibunByManagementNo(jibunId);
 
   return (
     <Accordion type="single" collapsible className="pl-4 pr-2">
