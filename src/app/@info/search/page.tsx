@@ -53,7 +53,7 @@ export default function SearchPage() {
       </div>
       {data?.searchHits?.map((item, index) => (
         <div
-          key={item.content.id}
+          key={item.content.additionalInfoId}
           className="w-full border-b border-gray-200 py-2 px-6"
         >
           <p className="text-sm">{item.content.buildingNameSearchAsYouType}</p>
