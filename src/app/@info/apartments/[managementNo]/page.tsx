@@ -21,8 +21,6 @@ export default async function ApartmentPage({
 }: Props) {
   const response = await fetchJibunByManagementNo(managementNo);
 
-  console.log("response", response);
-
   return (
     <div>
       <div className="bg-orange-500">

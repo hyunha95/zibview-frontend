@@ -1,21 +1,6 @@
 "use client";
 
 import { search } from "@/api/search";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Search } from "lucide-react";
 import Link from "next/link";
@@ -28,8 +13,6 @@ export default function SearchPage() {
     queryKey: ["search", query],
     queryFn: () => search(query),
   });
-
-  console.log(data);
 
   return (
     <>

@@ -104,22 +104,6 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const lat = Number(searchParams.get("lat") || 0);
-  //   const lng = Number(searchParams.get("lon") || 0);
-
-  //   const map = new naver.maps.Map("map", {
-  //     center: new naver.maps.LatLng(lng, lat),
-  //     zoom: 15,
-  //     minZoom: 15,
-  //     zoomControl: true, // Indicates whether a zoom control is displayed.
-  //     zoomControlOptions: {
-  //       // Zoom control options
-  //       position: naver.maps.Position.TOP_RIGHT,
-  //     },
-  //   });
-  // }, [searchParams.get("lat"), searchParams.get("lon")]);
-
   return (
     <>
       <div id="map" className="h-screen w-full"></div>;

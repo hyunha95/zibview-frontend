@@ -1,5 +1,6 @@
 export interface JibunSearchResponse {
   jibunId: number;
+  managementNo: string;
   jibunAddress: string;
   sidoName: string;
   sggName: string;
