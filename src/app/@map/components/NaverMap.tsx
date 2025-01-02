@@ -73,6 +73,7 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
         jibun.yCoordinate,
         jibun.xCoordinate
       );
+
       const position = naver.maps.TransCoord.fromUTMKToLatLng(latlng);
 
       // 마커 생성
@@ -87,7 +88,6 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
 
   useEffect(() => {
     // 지도 초기화
-
     let mapInstance;
     if (searchParams.get("lat") && searchParams.get("lon")) {
       mapInstance = initMap(
@@ -102,7 +102,7 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
       naver.maps.Event.clearListeners(mapInstance, "tilesloaded");
       naver.maps.Event.clearListeners(mapInstance, "idle");
     };
-  }, []);
+  }, [searchParams.get("search")]);
 
   return (
     <>

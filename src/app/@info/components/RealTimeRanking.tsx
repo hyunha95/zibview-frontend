@@ -34,13 +34,13 @@ export default function RealTimeRanking() {
           {Array.from({ length: 5 }).map((_, index) => (
             <CarouselItem key={index}>
               <Link href="#" className="grid grid-cols-10 w-full">
-                <span className="col-span-1 font-bold text-orange-600 text-center">
+                <span className="col-span-1 font-bold text-orange-600 text-center ">
                   1
                 </span>
-                <span className="col-span-7 font-semibold">
+                <span className="col-span-7 text-sm font-semibold self-center">
                   서울 강남구 대치동
                 </span>
-                <span className="col-span-2 text-center font-semibold">
+                <span className="col-span-2 text-sm text-center font-semibold self-center">
                   1,500
                 </span>
               </Link>

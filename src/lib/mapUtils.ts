@@ -1,5 +1,5 @@
 import { JibunSearchResponse } from "@/api/dataTypes";
-import { JibunRef } from "@/components/NaverMap";
+import { JibunRef } from "@/app/@map/components/NaverMap";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 /**
@@ -60,6 +60,8 @@ export const createMaker = (
       `/apartments/${jibun.managementNo}?lat=${position.y}&lon=${position.x}`
     )
   );
+
+  console.log(`position.y: ${position.y}, position.x: ${position.x}`);
 
   // 클릭 시 센터로 이동
   naver.maps.Event.addListener(marker, "click", () => {

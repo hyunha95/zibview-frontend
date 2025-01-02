@@ -17,12 +17,12 @@ export default function Search() {
     queryFn: () => search(query),
   });
 
-  console.log("data", data);
-
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedIndex(-1);
     setQuery(e.target.value);
   };
+
+  console.log("data", data);
 
   // const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
   //   e.preventDefault(); // 브라우저 기본 동작 방지
@@ -42,6 +42,13 @@ export default function Search() {
   //   }
   // };
 
+  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    // setTimeout으로 `onBlur` 실행을 지연 처리
+    setTimeout(() => {
+      setOpen(false);
+    }, 200);
+  };
+
   return (
     <div className="relative z-50">
       <div
@@ -54,7 +61,7 @@ export default function Search() {
         <input
           type="text"
           onFocus={() => setOpen(true)}
-          // onBlur={() => setOpen(false)}
+          onBlur={handleBlur}
           onClick={() => setOpen(true)}
           placeholder="검색어를 입력하세요."
           value={query}
@@ -78,25 +85,34 @@ export default function Search() {
             </span>
           </li>
         )}
-        {data?.searchHits?.map((item, index) => (
-          <li>
-            <Link
-              href={`/apartments/${item.content.managementNo}`}
-              className="py-2 px-2 flex gap-x-2 rounded-3xl hover:bg-slate-100"
-            >
-              <div className="relative h-6 w-6 bg-slate-200 rounded-full">
-                <SearchIcon
-                  size={15}
-                  color="#94a3b8"
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                />
-              </div>
-              <span className="text-sm">
-                {item.content.dongNameWithBuildingName}
-              </span>
-            </Link>
-          </li>
-        ))}
+        {data?.searchHits?.map((item, index) => {
+          const content = item.content;
+          const point = new naver.maps.LatLng(
+            content.ycoordinate,
+            content.xcoordinate
+          );
+
+          const position = naver.maps.TransCoord.fromUTMKToLatLng(point);
+          return (
+            <li>
+              <Link
+                href={`/apartments/${content.managementNo}?lat=${position.y}&lon=${position.x}&search=true`}
+                className="py-2 px-2 flex gap-x-2 rounded-3xl hover:bg-slate-100"
+              >
+                <div className="relative h-6 w-6 bg-slate-200 rounded-full">
+                  <SearchIcon
+                    size={15}
+                    color="#94a3b8"
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                  />
+                </div>
+                <span className="text-sm">
+                  {content.dongNameWithBuildingName}
+                </span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

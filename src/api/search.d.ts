@@ -16,6 +16,8 @@ export interface SearchResponse {
         buildingNameNgrams: string;
         buildingNameSearchAsYouType: string;
         dongNameWithBuildingName: string;
+        xcoordinate: number;
+        ycoordinate: number;
       };
     }
   ];
