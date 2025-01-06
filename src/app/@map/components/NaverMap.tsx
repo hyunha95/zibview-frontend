@@ -22,6 +22,7 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
   const markersRef = useRef<SetWithContentEquality<naver.maps.Marker>>(
     new SetWithContentEquality<naver.maps.Marker>((marker) => marker.getTitle())
   );
+  const jibunIdRef = useRef<number[]>([]);
 
   // anonymousUserUUID 쿠키에 추가
   Cookies.set("anonymousUserUUID", anonymousUserUUID, { expires: 1 });
@@ -65,8 +66,7 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
       minUTMK.y,
       maxUTMK.x,
       maxUTMK.y,
-      map.getZoom(),
-      anonymousUserUUID
+      jibunIdRef.current.values().toArray()
     );
     for (const jibun of jibuns) {
       const latlng = new naver.maps.LatLng(

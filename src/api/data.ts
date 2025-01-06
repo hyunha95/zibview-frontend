@@ -16,8 +16,7 @@ export const searchByPoints = async (
   minY: number,
   maxX: number,
   maxY: number,
-  zoomLevel: number,
-  anonymousUserUUID: string
+  jibunIds: number[]
 ) => {
   console.log("requested api");
 
@@ -34,11 +33,10 @@ export const searchByPoints = async (
   url.append("minY", minY.toString());
   url.append("maxX", maxX.toString());
   url.append("maxY", maxY.toString());
-  url.append("zoomLevel", zoomLevel.toString());
-  url.append("anonymousUserUUID", anonymousUserUUID);
+  url.append("searchedJibunIds", jibunIds.join(","));
 
   const response = await customFetch(
-    `/api/jibuns/search-by-utmk?${url.toString()}`,
+    `/api/jibuns/search-by-utmk-get?${url.toString()}`,
     { signal, credentials: "include" }
   );
 
