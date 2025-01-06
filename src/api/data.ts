@@ -67,7 +67,7 @@ export const fetchJibunByManagementNo = async (managementNo: string) => {
  * @returns
  */
 export const fetchPastYearsTransactions = async (
-  jibunId: string,
+  jibunId: number,
   fromYear: number,
   exclusiveUseArea: number
 ) => {

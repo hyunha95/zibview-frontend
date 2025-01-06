@@ -24,7 +24,7 @@ export default async function PyungChart({ jibunId }: Props) {
   console.log("jibun", jibun);
 
   const response = await fetchPastYearsTransactions(
-    jibun.jibunId.toString(),
+    jibun.jibunId,
     new Date().getFullYear() - 2,
     exclusiveUseArea
   );
