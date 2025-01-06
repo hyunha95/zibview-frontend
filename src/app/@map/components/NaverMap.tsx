@@ -32,7 +32,7 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
     const map = new naver.maps.Map("map", {
       center: new naver.maps.LatLng(lat, lng),
       zoom: 15,
-      minZoom: 15,
+      // minZoom: 15,
       zoomControl: true, // Indicates whether a zoom control is displayed.
       zoomControlOptions: {
         // Zoom control options
@@ -68,6 +68,12 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
       maxUTMK.y,
       jibunIdRef.current.values().toArray()
     );
+
+    jibunIdRef.current = [
+      ...jibunIdRef.current.values().toArray(),
+      ...jibuns.map((jibun) => jibun.jibunId),
+    ];
+
     for (const jibun of jibuns) {
       const latlng = new naver.maps.LatLng(
         jibun.yCoordinate,
