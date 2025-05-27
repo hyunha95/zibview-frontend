@@ -22,6 +22,7 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
   const markersRef = useRef<SetWithContentEquality<naver.maps.Marker>>(
     new SetWithContentEquality<naver.maps.Marker>((marker) => marker.getTitle())
   );
+  const jibunIdRef = useRef<number[]>([]);
 
   // anonymousUserUUID 쿠키에 추가
   Cookies.set("anonymousUserUUID", anonymousUserUUID, { expires: 1 });
@@ -31,7 +32,7 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
     const map = new naver.maps.Map("map", {
       center: new naver.maps.LatLng(lat, lng),
       zoom: 15,
-      minZoom: 15,
+      // minZoom: 15,
       zoomControl: true, // Indicates whether a zoom control is displayed.
       zoomControlOptions: {
         // Zoom control options
@@ -65,9 +66,14 @@ export default function NaverMap({ anonymousUserUUID }: Props) {
       minUTMK.y,
       maxUTMK.x,
       maxUTMK.y,
-      map.getZoom(),
-      anonymousUserUUID
+      jibunIdRef.current.values().toArray()
     );
+
+    jibunIdRef.current = [
+      ...jibunIdRef.current.values().toArray(),
+      ...jibuns.map((jibun) => jibun.jibunId),
+    ];
+
     for (const jibun of jibuns) {
       const latlng = new naver.maps.LatLng(
         jibun.yCoordinate,
